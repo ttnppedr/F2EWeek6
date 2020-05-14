@@ -17,6 +17,12 @@
           p
           p
           p
+    div(class="rooms")
+      div
+        RoomsType(
+          v-for="(room, index) in rooms" :key="index"
+          :roomImg="room"
+        )
 </template>
 
 <script>
@@ -24,17 +30,24 @@
 import { mapActions, mapGetters } from "vuex";
 
 // components
-
+import RoomsType from '@/components/RoomsType.vue'
 
 // views
 
 
 // assets
-import homepage1 from '@/assets/img/homepage1.jpeg'
-import homepage2 from '@/assets/img/homepage2.jpeg'
-import homepage3 from '@/assets/img/homepage3.jpeg'
-import homepage4 from '@/assets/img/homepage4.jpeg'
+import homepage1 from '@/assets/img/homepages/homepage1.jpeg'
+import homepage2 from '@/assets/img/homepages/homepage2.jpeg'
+import homepage3 from '@/assets/img/homepages/homepage3.jpeg'
+import homepage4 from '@/assets/img/homepages/homepage4.jpeg'
 import logo from '@/assets/img/logo.png'
+
+import room1 from '@/assets/img/rooms/room-type-1/room1.jpeg'
+import room2 from '@/assets/img/rooms/room-type-2/room2.jpeg'
+import room3 from '@/assets/img/rooms/room-type-3/room3.jpeg'
+import room4 from '@/assets/img/rooms/room-type-4/room4.jpeg'
+import room5 from '@/assets/img/rooms/room-type-5/room5.jpeg'
+import room6 from '@/assets/img/rooms/room-type-6/room6.jpeg'
 
 export default {
   props: {
@@ -43,6 +56,7 @@ export default {
   data() {
     return {
       bgUrl: [homepage1, homepage2, homepage3, homepage4], 
+      rooms: [room1, room2, room3, room4, room5, room6],
       backgroundObj: {
         'backgroundImage': `url(${ homepage1 })`,
         'backgroundRepeat': 'no-repeat',
@@ -64,6 +78,9 @@ export default {
       return logo;
     }
   },
+  components: {
+    RoomsType,
+  },
   mounted() {
 
   }
@@ -82,7 +99,7 @@ export default {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(0, 0, 0, .6);
+    background: rgba(0, 0, 0, 0.6);
     z-index: 2;
   }
   .logo-bar {
@@ -93,7 +110,7 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     .logo {
-      margin: 120px 0 185px;
+      margin: 120px 0 205px;
     }
     .hotel-info {
       > h2, p {
@@ -108,7 +125,7 @@ export default {
       }
     }
     .dots {
-      margin: 50px 0 47px;
+      margin: 32px 0 47px;
       text-align: right;
       > p {
         display: inline-block;
@@ -118,6 +135,18 @@ export default {
         border-radius: 50%;
         margin-right: 11px;
       }
+    }
+  }
+  .rooms {
+    position: relative;
+    z-index: 3;
+    flex: 0 1 75%;
+    align-self: center;
+    > div {
+      height: 72%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
     }
   }
 }
