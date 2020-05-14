@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view />
+    <router-view class="views"/>
   </div>
 </template>
 
@@ -24,5 +24,10 @@
       color: #42b983;
     }
   }
+}
+
+.views {
+  width: 100%;
+  height: 98vh;
 }
 </style>
