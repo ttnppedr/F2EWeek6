@@ -1,0 +1,8 @@
+@function calSidePercentage($side, $pixels) {
+  @if $side == 'height' {
+    @return ($pixels / 768) * 100%;
+  }
+  @if $side == 'width' {
+    @return ($pixels / 1366) * 100%;
+  }
+}
