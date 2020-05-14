@@ -12,21 +12,8 @@
   box-sizing: border-box;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-
 .views {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 }
 </style>
