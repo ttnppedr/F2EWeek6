@@ -13,10 +13,22 @@
           p 03-8321155
           p HOUSE@HOTEL.COM
         div(class="dots")
-          p
-          p
-          p
-          p
+          p(
+            @click="changeBgImg(0)"
+            :class="{ 'change-img': isChanges[0] }"
+          )
+          p(
+            @click="changeBgImg(1)"
+            :class="{ 'change-img': isChanges[1] }"
+          )
+          p(
+            @click="changeBgImg(2)"
+            :class="{ 'change-img': isChanges[2] }"
+          )
+          p(
+            @click="changeBgImg(3)"
+            :class="{ 'change-img': isChanges[3] }"
+          )
     div(class="rooms")
       div
         RoomsType(
@@ -55,6 +67,7 @@ export default {
   },
   data() {
     return {
+      isChanges: [true, false, false, false],
       bgUrl: [homepage1, homepage2, homepage3, homepage4], 
       rooms: [room1, room2, room3, room4, room5, room6],
       backgroundObj: {
@@ -69,6 +82,12 @@ export default {
     ...mapActions({
 
     }),
+    changeBgImg(index) {
+      this.isChanges.fill(false);
+      this.isChanges[index] = true;
+      this.backgroundObj.backgroundImage = `url(${ this.bgUrl[index] })`;
+      return this.backgroundObj;
+    }
   },
   computed: {
     ...mapGetters({
@@ -134,6 +153,10 @@ export default {
         border: 1px solid #fff;
         border-radius: 50%;
         margin-right: 11px;
+        cursor: pointer;
+      }
+      .change-img {
+        background: #ffffff;
       }
     }
   }
