@@ -107,10 +107,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/utils/calculatePercentage.scss';
+
 .home-page-container {
   position: relative;
   display: flex;
-  justify-content: center;
+  padding: calSidePercentage('height', 50) calSidePercentage('width', 200);
+  justify-content: space-around;
   &::before {
     content: '';
     position: absolute;
@@ -125,13 +128,12 @@ export default {
     position: relative;
     z-index: 3;
     flex: 0 1 10%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    margin-top: 100px;
     .logo {
-      margin: 120px 0 205px;
+      margin-bottom: 150px;
     }
     .hotel-info {
+      margin-bottom: 80px;
       > h2, p {
         font-size: 12px;
         color: #fff;
@@ -144,7 +146,6 @@ export default {
       }
     }
     .dots {
-      margin: 32px 0 47px;
       text-align: right;
       > p {
         display: inline-block;
@@ -163,7 +164,7 @@ export default {
   .rooms {
     position: relative;
     z-index: 3;
-    flex: 0 1 75%;
+    flex: 0 1 825px;
     align-self: center;
     > div {
       height: 72%;
