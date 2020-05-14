@@ -1,5 +1,7 @@
 <template lang="pug">
-  div This is home page
+  div(
+    class="home-page-container"
+  )
     
 </template>
 
@@ -14,7 +16,10 @@ import { mapActions, mapGetters } from "vuex";
 
 
 // assets
-
+import homepage1 from '@/assets/img/homepage1.jpeg'
+import homepage2 from '@/assets/img/homepage2.jpeg'
+import homepage3 from '@/assets/img/homepage3.jpeg'
+import homepage4 from '@/assets/img/homepage4.jpeg'
 
 export default {
   props: {
@@ -22,7 +27,7 @@ export default {
   },
   data() {
     return {
-
+      bgUrl: [homepage1, homepage2, homepage3, homepage4],
     }
   },
   methods: {
