@@ -34,6 +34,6 @@
 
 .views {
   width: 100%;
-  height: 98vh;
+  height: 100vh;
 }
 </style>
