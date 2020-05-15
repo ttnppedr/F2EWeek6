@@ -8,6 +8,16 @@ const routes = [
     path: '/home-page',
     name: 'HomePage',
     component: () => import('../views/HomePage.vue')
+  },
+  {
+    path: '/RoomsInfo/:id',
+    name: 'RoomsInfo',
+    component: () => import('../views/RoomsInfo'),
+    props: true
+  },
+  {
+    path: '*',
+    redirect: '/home-page'
   }
 ];
 

@@ -24,8 +24,8 @@
           v-for="(room, index) in formatAllRooms" :key="index"
           :roomImg="room.img"
           :imgIndex="imgIndex"
-          :id="room.id"
           @mouseover.native="imgIndex = index"
+          @click.native="selectRoom(room.id)"
         )
 </template>
 
@@ -67,6 +67,12 @@ export default {
       this.isChanges[index] = true;
       this.backgroundObj.backgroundImage = `url(${this.bgUrl[index]})`;
       return this.backgroundObj;
+    },
+    selectRoom(id) {
+      this.$router.push({ 
+        name: 'RoomsInfo',
+        params: { id }
+      })
     }
   },
   computed: {
