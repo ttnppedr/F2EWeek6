@@ -60,7 +60,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      getAllRooms: "getAllRooms"
+      getAllRooms: "getAllRooms",
+      getSingleRoom: "getSingleRoom"
     }),
     changeBgImg(index) {
       this.isChanges.fill(false);
@@ -68,11 +69,16 @@ export default {
       this.backgroundObj.backgroundImage = `url(${this.bgUrl[index]})`;
       return this.backgroundObj;
     },
-    selectRoom(id) {
-      this.$router.push({ 
-        name: 'RoomsInfo',
-        params: { id }
-      })
+    async selectRoom(id) {
+      try {
+        this.$router.push({ 
+          name: 'RoomsInfo',
+          params: { id }
+        });
+        await this.getSingleRoom(id);
+      } catch (error) {
+        console.log("error", error);
+      }
     }
   },
   computed: {

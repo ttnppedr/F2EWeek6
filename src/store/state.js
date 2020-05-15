@@ -1,3 +1,4 @@
 export default {
-  rooms: [] 
+  rooms: [],
+  singleRoom: {} 
 }
