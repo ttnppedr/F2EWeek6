@@ -14,26 +14,17 @@
           p HOUSE@HOTEL.COM
         div(class="dots")
           p(
-            @click="changeBgImg(0)"
-            :class="{ 'change-img': isChanges[0] }"
-          )
-          p(
-            @click="changeBgImg(1)"
-            :class="{ 'change-img': isChanges[1] }"
-          )
-          p(
-            @click="changeBgImg(2)"
-            :class="{ 'change-img': isChanges[2] }"
-          )
-          p(
-            @click="changeBgImg(3)"
-            :class="{ 'change-img': isChanges[3] }"
+            v-for="(item, index) in 4" :key="index"
+            @click="changeBgImg(index)"
+            :class="{ 'change-img': isChanges[index] }"
           )
     div(class="rooms")
       div
         RoomsType(
           v-for="(room, index) in rooms" :key="index"
           :roomImg="room"
+          :imgIndex="imgIndex"
+          @mouseover.native="imgIndex = index"
         )
 </template>
 
@@ -75,7 +66,8 @@ export default {
         'backgroundRepeat': 'no-repeat',
         'backgroundSize': 'cover',
         'backgroundPosition': 'center',
-      }
+      },
+      imgIndex: 0,
     }
   },
   methods: {
@@ -87,7 +79,7 @@ export default {
       this.isChanges[index] = true;
       this.backgroundObj.backgroundImage = `url(${ this.bgUrl[index] })`;
       return this.backgroundObj;
-    }
+    },
   },
   computed: {
     ...mapGetters({
@@ -108,11 +100,14 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/utils/calculatePercentage.scss';
+@import '@/assets/scss/utils/fonts.scss';
 
 .home-page-container {
   position: relative;
   display: flex;
-  padding: calSidePercentage('height', 50) calSidePercentage('width', 200);
+  padding: 
+    calSidePercentage('height', 50) 
+    calSidePercentage('width', 200);
   justify-content: space-around;
   &::before {
     content: '';
@@ -140,9 +135,13 @@ export default {
       }
       h2 {
         margin-bottom: 16px;
+        font-family: 'Noto Sans TC', sans-serif;
+        font-weight: bold;
       }
       p {
         margin-bottom: 6px;
+        font-family: 'Noto Sans TC', sans-serif;
+        font-weight: 300;
       }
     }
     .dots {
@@ -154,6 +153,7 @@ export default {
         border: 1px solid #fff;
         border-radius: 50%;
         margin-right: 11px;
+        transition: all .4s;
         cursor: pointer;
       }
       .change-img {
