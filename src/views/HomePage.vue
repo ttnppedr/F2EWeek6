@@ -34,81 +34,72 @@
 import { mapActions, mapGetters } from "vuex";
 
 // components
-import RoomsType from '@/components/RoomsType.vue'
-
+import RoomsType from "@/components/RoomsType.vue";
 // views
-
-
 // assets
-import homepage1 from '@/assets/img/homepages/homepage1.jpeg'
-import homepage2 from '@/assets/img/homepages/homepage2.jpeg'
-import homepage3 from '@/assets/img/homepages/homepage3.jpeg'
-import homepage4 from '@/assets/img/homepages/homepage4.jpeg'
-import logo from '@/assets/img/logo.png'
-
+import homepage1 from "@/assets/img/homepages/homepage1.jpeg";
+import homepage2 from "@/assets/img/homepages/homepage2.jpeg";
+import homepage3 from "@/assets/img/homepages/homepage3.jpeg";
+import homepage4 from "@/assets/img/homepages/homepage4.jpeg";
+import logo from "@/assets/img/logo.png";
 
 export default {
-  props: {
-
-  },
+  props: {},
   data() {
     return {
       isChanges: [true, false, false, false],
       bgUrl: [homepage1, homepage2, homepage3, homepage4], 
       backgroundObj: {
-        'backgroundImage': `url(${ homepage1 })`,
-        'backgroundRepeat': 'no-repeat',
-        'backgroundSize': 'cover',
-        'backgroundPosition': 'center',
+        backgroundImage: `url(${homepage1})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center"
       },
-      imgIndex: 0,
-    }
+      imgIndex: 0
+    };
   },
   methods: {
     ...mapActions({
-      getAllRooms: 'getAllRooms',
+      getAllRooms: "getAllRooms"
     }),
     changeBgImg(index) {
       this.isChanges.fill(false);
       this.isChanges[index] = true;
-      this.backgroundObj.backgroundImage = `url(${ this.bgUrl[index] })`;
+      this.backgroundObj.backgroundImage = `url(${this.bgUrl[index]})`;
       return this.backgroundObj;
-    },
+    }
   },
   computed: {
     ...mapGetters({
-      formatAllRooms: 'formatAllRooms'
+      formatAllRooms: "formatAllRooms"
     }),
     logo() {
       return logo;
     }
   },
   components: {
-    RoomsType,
+    RoomsType
   },
   async mounted() {
     try {
-      const res = await this.getAllRooms();
+      await this.getAllRooms();
     } catch (error) {
-      console.log("error", error)
+      console.log("error", error);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/utils/calculatePercentage.scss';
-@import '@/assets/scss/utils/fonts.scss';
+@import "@/assets/scss/utils/fonts.scss";
 
 .home-page-container {
   position: relative;
   display: flex;
-  padding: 
-    calSidePercentage('height', 50) 
-    calSidePercentage('width', 200);
-  justify-content: space-around;
+  padding: 150px 100px;
+  justify-content: center;
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     right: 0;
@@ -120,10 +111,13 @@ export default {
   .logo-bar {
     position: relative;
     z-index: 3;
-    flex: 0 1 10%;
+    flex: 0 1 9%;
     margin-top: 100px;
     .logo {
-      margin-bottom: 150px;
+      margin-bottom: 240px;
+      img {
+        width: 100%;
+      }
     }
     .hotel-info {
       margin-bottom: 80px;
@@ -133,12 +127,12 @@ export default {
       }
       h2 {
         margin-bottom: 16px;
-        font-family: 'Noto Sans TC', sans-serif;
+        font-family: "Noto Sans TC", sans-serif;
         font-weight: bold;
       }
       p {
         margin-bottom: 6px;
-        font-family: 'Noto Sans TC', sans-serif;
+        font-family: "Noto Sans TC", sans-serif;
         font-weight: 300;
       }
     }
@@ -146,12 +140,12 @@ export default {
       text-align: right;
       > p {
         display: inline-block;
-        width: 12px;
-        height: 12px;
+        width: 20px;
+        height: 20px;
         border: 1px solid #fff;
         border-radius: 50%;
         margin-right: 11px;
-        transition: all .4s;
+        transition: all 0.4s;
         cursor: pointer;
       }
       .change-img {
@@ -162,10 +156,11 @@ export default {
   .rooms {
     position: relative;
     z-index: 3;
-    flex: 0 1 825px;
+    flex: 0 1 1200px;
     align-self: center;
+    margin-left: 10%;
     > div {
-      height: 72%;
+      // height: 72%;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
