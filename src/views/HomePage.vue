@@ -5,7 +5,7 @@
   )
     div(class="logo-bar")
       h1(class="logo") 
-        img(:src="logoUrl") 
+        img(:src="logo") 
       div
         div(class="hotel-info")
           h2 好室旅店。HOUSE HOTEL
@@ -21,9 +21,10 @@
     div(class="rooms")
       div
         RoomsType(
-          v-for="(room, index) in rooms" :key="index"
-          :roomImg="room"
+          v-for="(room, index) in formatAllRooms" :key="index"
+          :roomImg="room.img"
           :imgIndex="imgIndex"
+          :id="room.id"
           @mouseover.native="imgIndex = index"
         )
 </template>
@@ -45,12 +46,6 @@ import homepage3 from '@/assets/img/homepages/homepage3.jpeg'
 import homepage4 from '@/assets/img/homepages/homepage4.jpeg'
 import logo from '@/assets/img/logo.png'
 
-import room1 from '@/assets/img/rooms/room-type-1/room1.jpeg'
-import room2 from '@/assets/img/rooms/room-type-2/room2.jpeg'
-import room3 from '@/assets/img/rooms/room-type-3/room3.jpeg'
-import room4 from '@/assets/img/rooms/room-type-4/room4.jpeg'
-import room5 from '@/assets/img/rooms/room-type-5/room5.jpeg'
-import room6 from '@/assets/img/rooms/room-type-6/room6.jpeg'
 
 export default {
   props: {
@@ -60,7 +55,6 @@ export default {
     return {
       isChanges: [true, false, false, false],
       bgUrl: [homepage1, homepage2, homepage3, homepage4], 
-      rooms: [room1, room2, room3, room4, room5, room6],
       backgroundObj: {
         'backgroundImage': `url(${ homepage1 })`,
         'backgroundRepeat': 'no-repeat',
@@ -72,7 +66,7 @@ export default {
   },
   methods: {
     ...mapActions({
-
+      getAllRooms: 'getAllRooms',
     }),
     changeBgImg(index) {
       this.isChanges.fill(false);
@@ -83,17 +77,21 @@ export default {
   },
   computed: {
     ...mapGetters({
-
+      formatAllRooms: 'formatAllRooms'
     }),
-    logoUrl() {
+    logo() {
       return logo;
     }
   },
   components: {
     RoomsType,
   },
-  mounted() {
-
+  async mounted() {
+    try {
+      const res = await this.getAllRooms();
+    } catch (error) {
+      console.log("error", error)
+    }
   }
 }
 </script>
