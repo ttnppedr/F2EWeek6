@@ -8,7 +8,9 @@
       ) 
         img(:src="previousIcon") 
         span 查看其他房型
-      room-carousel
+      room-carousel(
+        :singleRoomImgs="singleRoomImgs"
+      )
     div(
       class="room-info"
     ) 
@@ -41,19 +43,24 @@ export default {
   },
   methods: {
     ...mapActions({
-
+      getSingleRoom: 'getSingleRoom'
     })
   },
   computed: {
     ...mapGetters({
-
+      singleRoomImgs: "singleRoomImgs"
     })
   },
   components: {
     "room-carousel": Carousel
   },
-  mounted() {
-
+  async mounted() {
+    try {
+      const id = this.$route.params.id;
+      await this.getSingleRoom(id);
+    } catch (error) {
+      console.log("error", error);
+    }
   }
 }
 </script>

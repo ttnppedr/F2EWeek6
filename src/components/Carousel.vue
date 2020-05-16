@@ -4,42 +4,32 @@
       v-carousel(
         hide-delimiter-background
         show-arrows-on-hover
+        :show-arrows="false"
+        :continuous="true"
       )
         v-carousel-item(
-          v-for="(item,i) in items"
+          v-for="(imgSrc,i) in singleRoomImgs"
           :key="i"
-          :src="item.src"
-          reverse-transition="fade-transition"
-          transition="fade-transition"
+          :src="imgSrc"
         )
 </template>
 
 <script>
 
 export default {
-  props: {},
-  data() {
-    return {
-      items: [
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-        },
-      ],
+  props: {
+    singleRoomImgs: {
+      type: Array,
+      required: true
     }
+  },
+  data() {
+    return {}
   },
   methods: {},
   computed: {},
   components: {},
-  mounted() { }
+  mounted() {}
 }
 </script>
 
