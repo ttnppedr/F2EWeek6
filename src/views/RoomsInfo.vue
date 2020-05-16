@@ -5,7 +5,7 @@
         class="previous"
         @click="goPreviousPage"
       ) 
-        img(:src="previousIcon") 
+        img(:src="previousIcon")
         span 查看其他房型
       div(class="booking")
         p 
@@ -14,12 +14,37 @@
         button(
           type="button"
         ) Booking now
-      room-carousel(
+      Carousel(
+        @click.native="showPopup = true"
         :singleRoomImgs="singleRoomImgs"
       )
-    div(
-      class="room-info"
-    ) 
+    div(class="room-info") 
+    transition(name="fade")
+      div(
+        class="popup"
+        v-if="showPopup"
+        @click="showPopup = false, imgIndex = 0"
+      )
+        Arrow(
+          :arrowWidth="30"
+          :arrowHeight="57"
+          :isReverse="false" 
+          :showPopup="showPopup"
+          :imgIndex="imgIndex"
+          :roomImgsLen = "singleRoomImgs.length"
+          @click.native.stop="changePrevImgIndex"
+        )
+        div(class="room-details-imgs")
+          img(:src="singleRoomImgs[imgIndex]")
+        Arrow(
+          :arrowWidth="30"
+          :arrowHeight="57"
+          :isReverse="true" 
+          :showPopup="showPopup"
+          :imgIndex="imgIndex"
+          :roomImgsLen = "singleRoomImgs.length" 
+          @click.native.stop="changeNextImgIndex"
+        )
 </template>
 
 <script>
@@ -28,7 +53,7 @@ import { mapActions, mapGetters } from "vuex";
 
 // components
 import Carousel from '@/components/Carousel.vue'
-
+import Arrow from '@/components/base/Arrow.vue'
 // views
 
 
@@ -36,15 +61,18 @@ import Carousel from '@/components/Carousel.vue'
 import previous from '@/assets/img/rooms/surface1.svg'
 
 export default {
+  name: 'RoomesInfo',
   props: {
     id: {
       type: String,
-      required: true
+      required: true,
     }
   },
   data() {
     return {
-      previousIcon: previous
+      previousIcon: previous,
+      showPopup: false,
+      imgIndex: 0,
     }
   },
   methods: {
@@ -53,7 +81,18 @@ export default {
     }),
     goPreviousPage() {
       this.$router.push({ name: 'HomePage' });
-    }
+    },
+    changePrevImgIndex() {
+      this.imgIndex = this.imgIndex <= 0
+        ? this.imgIndex
+        : this.imgIndex - 1
+    },
+    changeNextImgIndex() {
+      const singleRoomImgsLen = this.singleRoomImgs.length; 
+      this.imgIndex = this.imgIndex < singleRoomImgsLen - 1
+        ? this.imgIndex + 1
+        : this.imgIndex
+    },
   },
   computed: {
     ...mapGetters({
@@ -61,7 +100,8 @@ export default {
     })
   },
   components: {
-    "room-carousel": Carousel
+    Carousel,
+    Arrow
   },
   async mounted() {
     try {
@@ -76,6 +116,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/utils/fonts.scss';
+@import '@/assets/scss/vueNative/vueTransition.scss';
 
 .rooms-info {
   display: flex;
@@ -83,6 +124,7 @@ export default {
     flex: 0 1 35%;
     position: relative;
     height: 100vh;
+    cursor: pointer;
     .previous {
       position: absolute;
       z-index: 3;
@@ -146,6 +188,29 @@ export default {
   .room-info {
     flex: 0 1 65%;
     height: 100vh;
+  }
+  .popup {
+    cursor: pointer;
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .5);
+    .room-details-imgs {
+      width: 80%;
+      height: 90vh;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      img {
+        max-width: calc(100% - 60px);
+        height: 100%;
+      }
+    }
   }
 }
 </style>
