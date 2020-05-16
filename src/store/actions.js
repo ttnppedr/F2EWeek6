@@ -11,5 +11,6 @@ export default {
     const res = await api.get(`/room/${id}`);
     const { data } = res;
     commit('updateSingleRooms', data);
+    return res;
   }
 }

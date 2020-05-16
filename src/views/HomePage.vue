@@ -27,15 +27,26 @@
           @mouseover.native="imgIndex = index"
           @click.native="selectRoom(room.id)"
         )
+    loading(
+      :active.sync="isLoading" 
+      :is-full-page="true"
+      loader="dots"
+      background-color="#38470B"
+      color="#fff"
+      :width="100"
+      :height="100"
+    )
 </template>
 
 <script>
 // plugin
 import { mapActions, mapGetters } from "vuex";
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 // components
 import RoomsType from "@/components/RoomsType.vue";
-// views
+
 // assets
 import homepage1 from "@/assets/img/homepages/homepage1.jpeg";
 import homepage2 from "@/assets/img/homepages/homepage2.jpeg";
@@ -55,7 +66,8 @@ export default {
         backgroundSize: "cover",
         backgroundPosition: "center"
       },
-      imgIndex: 0
+      imgIndex: 0,
+      isLoading: false
     };
   },
   methods: {
@@ -70,11 +82,20 @@ export default {
       return this.backgroundObj;
     },
     async selectRoom(id) {
-      this.$router.push({ 
-        name: 'RoomsInfo',
-        params: { id }
-      });
-    }
+      try {
+        this.isLoading = true;
+        const { status } = await this.getSingleRoom(id);
+        
+        if(status != 200) return;
+        this.isLoading = false;
+        this.$router.push({ 
+          name: 'RoomsInfo',
+          params: { id }
+        });
+      } catch (error) {
+        console.log("error", error)
+      }
+    },
   },
   computed: {
     ...mapGetters({
@@ -82,10 +103,11 @@ export default {
     }),
     logo() {
       return logo;
-    }
+    },
   },
   components: {
-    RoomsType
+    RoomsType,
+    Loading
   },
   async mounted() {
     try {
