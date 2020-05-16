@@ -70,15 +70,10 @@ export default {
       return this.backgroundObj;
     },
     async selectRoom(id) {
-      try {
-        this.$router.push({ 
-          name: 'RoomsInfo',
-          params: { id }
-        });
-        await this.getSingleRoom(id);
-      } catch (error) {
-        console.log("error", error);
-      }
+      this.$router.push({ 
+        name: 'RoomsInfo',
+        params: { id }
+      });
     }
   },
   computed: {
