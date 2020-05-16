@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     el-carousel(
-      :interval="30000"
+      :interval="5000"
       arrow="never"
       trigger="click"
     )
