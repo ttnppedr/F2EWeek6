@@ -1,7 +1,10 @@
 <template lang="pug">
   div(class="rooms-info")
     div(class="carousel") 
-      p(class="previous") 
+      p(
+        class="previous"
+        @click="goPreviousPage"
+      ) 
         img(:src="previousIcon") 
         span 查看其他房型
       div(class="booking")
@@ -47,7 +50,10 @@ export default {
   methods: {
     ...mapActions({
       getSingleRoom: 'getSingleRoom'
-    })
+    }),
+    goPreviousPage() {
+      this.$router.push({ name: 'HomePage' });
+    }
   },
   computed: {
     ...mapGetters({
@@ -116,15 +122,20 @@ export default {
         }
       }
       > button {
+        width: 252px;
         background: #38470B;
         color: #ffffff;
         padding: 10px 50px;
         margin-top: 5px;
         outline: none;
         border: none;
+        transition: opacity .2s;
         cursor: pointer;
         font-family: 'Open Sans', sans-serif;
         font-size: 20px;
+        &:hover {
+          opacity: .8;
+        }
       }
     }
   }
