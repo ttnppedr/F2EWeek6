@@ -1,17 +1,15 @@
 <template lang="pug">
   div
-    v-app(id="inspire")
-      v-carousel(
-        hide-delimiter-background
-        show-arrows-on-hover
-        :show-arrows="false"
-        :continuous="true"
+    el-carousel(
+      :interval="30000"
+      arrow="never"
+      trigger="click"
+    )
+      el-carousel-item(
+        v-for="(imgSrc,i) in singleRoomImgs"
+        :key="i"
       )
-        v-carousel-item(
-          v-for="(imgSrc,i) in singleRoomImgs"
-          :key="i"
-          :src="imgSrc"
-        )
+        div(:style="roomImgObj(imgSrc)")
 </template>
 
 <script>
@@ -26,7 +24,18 @@ export default {
   data() {
     return {}
   },
-  methods: {},
+  methods: {
+    roomImgObj(src) {
+      return {
+        width: "100%",
+        height: "100%",
+        backgroundImage: `url(${src})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center"
+      }
+    }
+  },
   computed: {},
   components: {},
   mounted() {}
@@ -34,5 +43,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/vendors/vuetify/carousel.scss';
+@import '@/assets/scss/vendors/elementUI/carousel.scss';
 </style>

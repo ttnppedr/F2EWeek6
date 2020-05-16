@@ -1,13 +1,16 @@
 <template lang="pug">
   div(class="rooms-info")
-    div(
-      class="carousel"
-    ) 
-      p(
-        class="previous"
-      ) 
+    div(class="carousel") 
+      p(class="previous") 
         img(:src="previousIcon") 
         span 查看其他房型
+      div(class="booking")
+        p 
+          span {{ "$1,380" }} 
+          | / {{ "1" }}晚
+        button(
+          type="button"
+        ) Booking now
       room-carousel(
         :singleRoomImgs="singleRoomImgs"
       )
@@ -96,6 +99,32 @@ export default {
       }
       span {
         margin-left: 5px;
+      }
+    }
+    .booking {
+      position: absolute;
+      z-index: 3;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      > p {
+        color: #38470B;
+        font-size: 20px;
+        text-align: center;
+        > span {
+          font-size: 36px;
+        }
+      }
+      > button {
+        background: #38470B;
+        color: #ffffff;
+        padding: 10px 50px;
+        margin-top: 5px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 20px;
       }
     }
   }

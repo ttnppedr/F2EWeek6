@@ -1,0 +1,20 @@
+::v-deep .el-carousel__container {
+  height: 100vh;
+}
+
+::v-deep .el-carousel__indicators--horizontal {
+  bottom: 270px;
+}
+
+::v-deep .el-carousel__button {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #38470B;
+  border-radius: 50%;
+  background: transparent;
+  margin: 0 5px;
+}
+
+::v-deep .el-carousel__indicator.is-active button {
+  background: #38470B;
+}
