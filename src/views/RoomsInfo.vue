@@ -91,14 +91,18 @@ export default {
       font-size: 14px;
       color: #38470B;
       cursor: pointer;
-      &:hover::before {
+      &::before {
         content: '';
+        width: 0;
         position: absolute;
         bottom: -5px;
         left: 10px;
-        width: 90%;
         height: 1px;
         background: #38470B;
+        transition: width 0.3s;
+      }
+      &:hover::before {
+        width: 90%;
       }
       > img, span  {
         vertical-align: middle;
