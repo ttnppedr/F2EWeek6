@@ -1,13 +1,17 @@
 <template lang="pug">
-  div(
-    class="rooms-info"
-  ) 
+  div(class="rooms-info")
     div(
       class="carousel"
-    )
+    ) 
+      p(
+        class="previous"
+      ) 
+        img(:src="previousIcon") 
+        span 查看其他房型
+      room-carousel
     div(
       class="room-info"
-    )
+    ) 
 </template>
 
 <script>
@@ -15,13 +19,13 @@
 import { mapActions, mapGetters } from "vuex";
 
 // components
-
+import Carousel from '@/components/Carousel.vue'
 
 // views
 
 
 // assets
-
+import previous from '@/assets/img/rooms/surface1.svg'
 
 export default {
   props: {
@@ -32,7 +36,7 @@ export default {
   },
   data() {
     return {
-
+      previousIcon: previous
     }
   },
   methods: {
@@ -46,7 +50,7 @@ export default {
     })
   },
   components: {
-
+    "room-carousel": Carousel
   },
   mounted() {
 
@@ -57,13 +61,39 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/utils/fonts.scss';
 
-.roooms-info {
+.rooms-info {
+  display: flex;
   .carousel {
-    outline: 2px solid#f00;
+    flex: 0 1 35%;
+    position: relative;
     height: 100vh;
+    .previous {
+      position: absolute;
+      z-index: 3;
+      top: 10%;
+      left: 10%;
+      font-size: 14px;
+      color: #38470B;
+      cursor: pointer;
+      &:hover::before {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 10px;
+        width: 90%;
+        height: 1px;
+        background: #38470B;
+      }
+      > img, span  {
+        vertical-align: middle;
+      }
+      span {
+        margin-left: 5px;
+      }
+    }
   }
   .room-info {
-    outline: 2px solid#f00; 
+    flex: 0 1 65%;
     height: 100vh;
   }
 }
