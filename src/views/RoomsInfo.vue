@@ -53,7 +53,7 @@ import { mapActions, mapGetters } from "vuex";
 
 // components
 import Carousel from '@/components/Carousel.vue'
-import Arrow from '@/components/base/Arrow.vue'
+import ArrowButton from '@/components/base/ArrowButton.vue'
 // views
 
 
@@ -101,7 +101,7 @@ export default {
   },
   components: {
     Carousel,
-    Arrow
+    ArrowButton
   },
   async mounted() {
     try {
