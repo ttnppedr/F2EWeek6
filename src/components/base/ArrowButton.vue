@@ -11,13 +11,6 @@
 </template>
 
 <script>
-// plugin
-
-// components
-
-// views
-
-// assets
 
 export default {
   props: {
@@ -67,6 +60,7 @@ export default {
         "arrow-left-non-active": 
           this.isReverse == false && 
           this.imgIndex == 0,
+
         "arrow-right-non-active": 
           this.isReverse == true && 
           this.imgIndex == this.roomImgsLen - 1,
@@ -91,29 +85,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.arrow {
-  display: inline-block;
-  > svg {
-    vertical-align: middle;
+  .arrow {
+    display: inline-block;
+    > svg {
+      vertical-align: middle;
+    }
   }
-}
-.arrow-left {
-  position: absolute;
-  z-index: 999;
-  top: 50%;
-  left: 100px;
-  transform: translate(0, -50%);
-}
-.arrow-right {
-  position: absolute;
-  z-index: 999;
-  top: 50%;
-  right: 100px;
-  transform: translate(0, -50%);
-}
-.arrow-left-non-active, .arrow-right-non-active {
-  svg {
-    opacity: 0.2;
+  .arrow-left {
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    left: 100px;
+    transform: translate(0, -50%);
   }
-}
+  .arrow-right {
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    right: 100px;
+    transform: translate(0, -50%);
+  }
+  .arrow-left-non-active, .arrow-right-non-active {
+    svg {
+      opacity: 0.2;
+    }
+  }
 </style>
