@@ -128,6 +128,19 @@ export default {
         return total;
       }, 0);
     },
+    getSelectedDays() {
+      const daysNumber = [];
+      const week = ['日', '一', '二', '三', '四', '五', '六'];
+      const period = periodOfDays(this.range.start, this.range.end);
+
+      for (let i = 1; i <= period; i++) {
+        let periodTimestamps = calculateDays(this.range.start, i);
+        daysNumber.push(new Date(periodTimestamps).getDay());
+      }
+
+      return daysNumber.map(num => week[num]);
+    }
+  },
   computed: {
     ...mapGetters({
       singleRoomImgs: "singleRoomImgs",
