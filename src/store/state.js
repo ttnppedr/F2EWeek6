@@ -1,4 +1,12 @@
 export default {
   rooms: [],
-  singleRoom: {} 
+  singleRoom: {
+    room: [
+      {
+        imageUrl: [],
+        checkInAndOut: {},
+        description: "",
+      }
+    ]
+  } 
 }
