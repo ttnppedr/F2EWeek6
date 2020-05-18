@@ -143,13 +143,14 @@ export default {
   .room-amentities {
     display: flex;
     flex-wrap: wrap;
-    width: 70%;
+    width: 100%;
     text-align: center;
-
   }
   .amentity {
     position: relative;
-    flex: 0 1 13%;
+    flex: 0 1 11%;
+    margin-right: 2%;
+    margin-bottom: 25px;
     .amentity-img {
       height: 40px;
     }
