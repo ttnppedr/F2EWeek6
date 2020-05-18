@@ -9,7 +9,7 @@
         span 查看其他房型
       div(class="booking")
         p 
-          span {{ "$1,380" }} 
+          span ${{ calculatePrice() }} 
           | / {{ getPeriodOfDays }}晚
         button(
           type="button"
@@ -118,7 +118,16 @@ export default {
         ? 0
         : holidayDayPrice + normalDayPrice 
     },
-  },
+    calculateRoomPrice(dayType, cost) {
+      const selectedDays = this.getSelectedDays();
+      return selectedDays.reduce((total, day) => {
+        let isSelectedNormal = dayType.some(selected => selected == day);
+        if (!isSelectedNormal) return total;
+
+        total += cost;
+        return total;
+      }, 0);
+    },
   computed: {
     ...mapGetters({
       singleRoomImgs: "singleRoomImgs",
