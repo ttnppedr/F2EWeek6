@@ -10,7 +10,7 @@
       div(class="booking")
         p 
           span {{ "$1,380" }} 
-          | / {{ "1" }}晚
+          | / {{ getPeriodOfDays }}晚
         button(
           type="button"
         ) Booking now
@@ -57,7 +57,10 @@
 // plugin
 import { mapActions, mapGetters } from "vuex";
 
-import { calculateDays } from '@/assets/utils/dateConvertor.js';
+import { 
+  calculateDays,
+  periodOfDays 
+} from '@/assets/utils/dateConvertor.js';
 // components
 import Carousel from '@/components/utils/Carousel.vue'
 import Popup from '@/components/utils/Popup.vue'
@@ -113,7 +116,10 @@ export default {
       roomPrice: "roomPrice",
       roomCheckInandOut: "roomCheckInandOut",
       roomUseGuide: "roomUseGuide",
-    })
+    }),
+    getPeriodOfDays() {
+      return periodOfDays(this.range.start, this.range.end);
+    }
   },
   components: {
     previousIcon,
