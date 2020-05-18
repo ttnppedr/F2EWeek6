@@ -72,16 +72,16 @@ export default {
   content: 'Single Room';
 }
 .room-2::before {
-  content: 'Double Room';
-}
-.room-3::before {
-  content: 'Twin Room';
-}
-.room-4::before {
   content: 'Deluxe Single Room';
 }
-.room-5::before {
+.room-3::before {
+  content: 'Double Room';
+}
+.room-4::before {
   content: 'Deluxe Double Room';
+}
+.room-5::before {
+  content: 'Twin Room';
 }
 .room-6::before {
   content: 'Deluxe Twin Room';
