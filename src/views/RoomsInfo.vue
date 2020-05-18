@@ -28,10 +28,10 @@
           p(class="check-in") 入住時間：{{ roomCheckInandOut.checkInEarly }}（最早）/ {{ roomCheckInandOut.checkInLate }}（最晚）
           p(class="check-out") 退房時間：{{ roomCheckInandOut.checkOut }}
         ul(class="room-use-guide")
-          li ・單人間僅供一位客人使用。 
-          li ・臥室配有單人床和私人浴室。 
-          li ・您需要的一切為您準備：床單和毯子，毛巾，肥皂和洗髮水，吹風機。 
-          li ・房間裡有AC，當然還有WiFi。
+          li(
+            v-for="(description, index) in roomUseGuide" 
+            :key="index"
+          ) {{ description }} 
         RoomAmenities
       div(class="calendar")
     Popup(
@@ -98,6 +98,7 @@ export default {
       roomSpecification: "roomSpecification",
       roomPrice: "roomPrice",
       roomCheckInandOut: "roomCheckInandOut",
+      roomUseGuide: "roomUseGuide",
     })
   },
   components: {
@@ -191,6 +192,7 @@ export default {
     flex: 0 1 65%;
     height: 100vh;
     padding: 85px 100px 30px 57px;
+    overflow-y: scroll;
     .each-room-details {
       h2 {
         display: flex;
@@ -213,6 +215,9 @@ export default {
       .room-use-guide {
         font-size: 14px;
         margin-bottom: 40px;
+        li {
+          margin-left: 20px;
+        }
       }
     }
   }

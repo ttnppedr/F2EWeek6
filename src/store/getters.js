@@ -40,3 +40,11 @@ export default {
       checkOut
     };
   },
+  roomUseGuide: ({ singleRoom }) => {
+    const { description } = singleRoom.room[0];
+    const splitDescription = description
+      .split('.')
+      .filter(str => str);
+    return splitDescription;
+  }
+}
