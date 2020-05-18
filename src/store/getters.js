@@ -32,3 +32,16 @@ export default {
       normalDayPrice
     };
   },
+  roomCheckInandOut: ({ singleRoom }) => {
+    const {
+      checkInEarly,
+      checkInLate,
+      checkOut
+    } = singleRoom.room[0].checkInAndOut;
+
+    return {
+      checkInEarly,
+      checkInLate,
+      checkOut
+    };
+  },
