@@ -8,12 +8,7 @@ export default {
     })
   },
   singleRoomImgs: ({ singleRoom }) => {
-    const initObj = [
-      { imageUrl: [] }
-    ];
-    return singleRoom.room
-      ? singleRoom.room[0].imageUrl
-      : singleRoom.room = initObj; 
+    return singleRoom.room[0].imageUrl
   },
   singleRoomName: ({ singleRoom }) => {
     const { name } = singleRoom.room[0];
