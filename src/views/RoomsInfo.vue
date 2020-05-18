@@ -21,8 +21,8 @@
     div(class="room-info") 
       div(class="each-room-details")
         h2 
-          span(class="room-type") Single Room
-          span 1人・ 單人床・ 附早餐・衛浴1間・18平方公尺
+          span(class="room-type") {{ singleRoomName }}
+          span {{ roomSpecification(singleRoomName) }}
         div(class="check-and-price")
           p(class="price") 平日（一～四）價格：1380 / 假日（五〜日）價格：1500
           p(class="check-in") 入住時間：15：00（最早）/ 21：00（最晚）
@@ -93,7 +93,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      singleRoomImgs: "singleRoomImgs"
+      singleRoomImgs: "singleRoomImgs",
+      singleRoomName: "singleRoomName",
+      roomSpecification: "roomSpecification",
     })
   },
   components: {

@@ -14,5 +14,14 @@ export default {
     return singleRoom.room
       ? singleRoom.room[0].imageUrl
       : singleRoom.room = initObj; 
-  }
-}
+  },
+  singleRoomName: ({ singleRoom }) => {
+    const { name } = singleRoom.room[0];
+    return name;
+  },
+  roomSpecification: state => name => {
+    const obj = {
+      "Deluxe Double Room": "2~3人・ 雙人床・ 附早餐・衛浴1間・26平方公尺",
+    };
+    return obj[name];
+  },
