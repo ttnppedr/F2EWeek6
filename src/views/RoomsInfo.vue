@@ -34,6 +34,13 @@
           ) {{ description }} 
         RoomAmenities
       div(class="calendar")
+        p 空房狀態查詢
+        DatePicker(
+          mode="range"
+          v-model="range"
+          is-inline
+          :columns="$screens({ default: 1, lg: 2 })"
+        )
     Popup(
       :showPopup="showPopup"
       :imgIndex="imgIndex"
@@ -55,6 +62,8 @@ import { calculateDays } from '@/assets/utils/dateConvertor.js';
 import Carousel from '@/components/utils/Carousel.vue'
 import Popup from '@/components/utils/Popup.vue'
 import RoomAmenities from '@/components/RoomAmenities.vue'
+import Calendar from 'v-calendar/lib/components/calendar.umd'
+import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 // assets
 import previousIcon from '@/assets/img/rooms/surface1.svg'
 
@@ -111,6 +120,7 @@ export default {
     Carousel,
     Popup,
     RoomAmenities,
+    DatePicker
   },
   async mounted() {
     try {
