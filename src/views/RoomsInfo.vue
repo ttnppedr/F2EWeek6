@@ -5,7 +5,7 @@
         class="previous"
         @click="goPreviousPage"
       ) 
-        img(:src="previousIcon")
+        previousIcon
         span 查看其他房型
       div(class="booking")
         p 
@@ -19,16 +19,31 @@
         :singleRoomImgs="singleRoomImgs"
       )
     div(class="room-info") 
-      Popup(
-        :showPopup="showPopup"
-        :imgIndex="imgIndex"
-        :roomImgsLen="singleRoomImgs.length"
-        :singleRoomImgs="singleRoomImgs"
-        @propClickShowPopup="showPopup = false"
-        @propResetImgIndex="imgIndex = 0"
-        @propChangePrevImgIndex="changePrevImgIndex"
-        @propChangeNextImgIndex="changeNextImgIndex"
-      )
+      div(class="each-room-details")
+        h2 
+          span(class="room-type") Single Room
+          span 1人・ 單人床・ 附早餐・衛浴1間・18平方公尺
+        div(class="check-and-price")
+          p(class="price") 平日（一～四）價格：1380 / 假日（五〜日）價格：1500
+          p(class="check-in") 入住時間：15：00（最早）/ 21：00（最晚）
+          p(class="check-out") 退房時間：10：00
+        ul(class="room-use-guide")
+          li ・單人間僅供一位客人使用。 
+          li ・臥室配有單人床和私人浴室。 
+          li ・您需要的一切為您準備：床單和毯子，毛巾，肥皂和洗髮水，吹風機。 
+          li ・房間裡有AC，當然還有WiFi。
+        RoomAmenities
+      div(class="calendar")
+    Popup(
+      :showPopup="showPopup"
+      :imgIndex="imgIndex"
+      :roomImgsLen="singleRoomImgs.length"
+      :singleRoomImgs="singleRoomImgs"
+      @propClickShowPopup="showPopup = false"
+      @propResetImgIndex="imgIndex = 0"
+      @propChangePrevImgIndex="changePrevImgIndex"
+      @propChangeNextImgIndex="changeNextImgIndex"
+    )
 </template>
 
 <script>
@@ -38,9 +53,10 @@ import { mapActions, mapGetters } from "vuex";
 // components
 import Carousel from '@/components/utils/Carousel.vue'
 import Popup from '@/components/utils/Popup.vue'
-
+import RoomAmenities from '@/components/RoomAmenities.vue'
 // assets
-import previous from '@/assets/img/rooms/surface1.svg'
+import previousIcon from '@/assets/img/rooms/surface1.svg'
+
 
 export default {
   name: 'RoomesInfo',
@@ -52,7 +68,6 @@ export default {
   },
   data() {
     return {
-      previousIcon: previous,
       showPopup: false,
       imgIndex: 0,
     }
@@ -82,8 +97,10 @@ export default {
     })
   },
   components: {
+    previousIcon,
     Carousel,
     Popup,
+    RoomAmenities,
   },
   async mounted() {
     try {
@@ -127,7 +144,7 @@ export default {
       &:hover::before {
         width: 90%;
       }
-      > img, span  {
+      > svg, span  {
         vertical-align: middle;
       }
       span {
@@ -169,6 +186,35 @@ export default {
   .room-info {
     flex: 0 1 65%;
     height: 100vh;
+    padding: 85px 100px 30px 57px;
+    .each-room-details {
+      h2 {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+        > span:nth-child(2) {
+          font-size: 14px;
+          align-self: flex-end;
+          padding-bottom: 10px;
+        }
+        > .room-type {
+          font-size: 40px;
+        }
+      }
+      .check-and-price {
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 40px;
+      }
+      .room-use-guide {
+        font-size: 14px;
+        margin-bottom: 40px;
+      }
+    }
+  }
+  .calendar {
+    height: 100px;
+    outline: 1px solid #f00;
   }
 }
 </style>
