@@ -50,6 +50,7 @@
 // plugin
 import { mapActions, mapGetters } from "vuex";
 
+import { calculateDays } from '@/assets/utils/dateConvertor.js';
 // components
 import Carousel from '@/components/utils/Carousel.vue'
 import Popup from '@/components/utils/Popup.vue'
@@ -70,6 +71,10 @@ export default {
     return {
       showPopup: false,
       imgIndex: 0,
+      range: {
+        start: calculateDays(0),
+        end: calculateDays(1)
+      }
     }
   },
   methods: {
