@@ -107,6 +107,17 @@ export default {
         ? this.imgIndex + 1
         : this.imgIndex
     },
+    calculatePrice() {
+      const normalDay = ['一', '二', '三', '四', '五'], holidayDay = ['六', '日'];
+      const normalDayCost = this.roomPrice.normalDayPrice;
+      const holidayDayCost = this.roomPrice.holidayPrice;
+      const normalDayPrice = this.calculateRoomPrice(normalDay, normalDayCost);
+      const holidayDayPrice = this.calculateRoomPrice(holidayDay, holidayDayCost);
+
+      return !(holidayDayPrice + normalDayPrice)
+        ? 0
+        : holidayDayPrice + normalDayPrice 
+    },
   },
   computed: {
     ...mapGetters({
