@@ -25,3 +25,10 @@ export default {
     };
     return obj[name];
   },
+  roomPrice: ({ singleRoom }) => {
+    const { holidayPrice, normalDayPrice } = singleRoom.room[0];
+    return {
+      holidayPrice,
+      normalDayPrice
+    };
+  },

@@ -24,9 +24,7 @@
           span(class="room-type") {{ singleRoomName }}
           span {{ roomSpecification(singleRoomName) }}
         div(class="check-and-price")
-          p(class="price") 平日（一～四）價格：1380 / 假日（五〜日）價格：1500
-          p(class="check-in") 入住時間：15：00（最早）/ 21：00（最晚）
-          p(class="check-out") 退房時間：10：00
+          p(class="price") 平日（一～四）價格：{{ roomPrice.normalDayPrice }} / 假日（五〜日）價格：{{ roomPrice.holidayPrice }}
         ul(class="room-use-guide")
           li ・單人間僅供一位客人使用。 
           li ・臥室配有單人床和私人浴室。 
@@ -96,6 +94,7 @@ export default {
       singleRoomImgs: "singleRoomImgs",
       singleRoomName: "singleRoomName",
       roomSpecification: "roomSpecification",
+      roomPrice: "roomPrice",
     })
   },
   components: {
