@@ -84,8 +84,8 @@ export default {
       showPopup: false,
       imgIndex: 0,
       range: {
-        start: calculateDays(0),
-        end: calculateDays(1)
+        start: calculateDays(new Date(), 0),
+        end: calculateDays(new Date(), 1)
       }
     }
   },

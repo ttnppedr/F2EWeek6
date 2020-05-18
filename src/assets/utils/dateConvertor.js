@@ -1,6 +1,6 @@
 
-export const calculateDays = num => {
-  const date = new Date();
+export const calculateDays = (start ,num) => {
+  const date = new Date(start);
   const TIMESTAMP = 86400000;
   const sum = date.getTime() + TIMESTAMP * num;
   return new Date(sum);
