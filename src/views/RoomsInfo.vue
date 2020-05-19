@@ -36,10 +36,14 @@
       div(class="calendar")
         p 空房狀態查詢
         DatePicker(
+          is-inline
           mode="range"
           v-model="range"
-          is-inline
+          locale="en-US"
+          :masks="{ weekdays: 'WW' }"
           :columns="$screens({ default: 1, lg: 2 })"
+          :available-dates='{ start: new Date(), end: null }'
+          @click.native="getDateItem($event)"
         )
     Popup(
       :showPopup="showPopup"
@@ -86,7 +90,8 @@ export default {
       range: {
         start: calculateDays(new Date(), 0),
         end: calculateDays(new Date(), 1)
-      }
+      },
+      dateItem: [],
     }
   },
   methods: {
@@ -139,6 +144,34 @@ export default {
       }
 
       return daysNumber.map(num => week[num]);
+    },
+    getDateItem(event) {
+      this.dateItem.push(event.target);
+      this.addBackgroundColorToDateItems();
+    },
+    addBackgroundColorToDateItems() {
+      if (this.dateItem.length > 2) {
+        this.dateItem[0].style.background = "transparent";
+        this.dateItem[1].style.background = "transparent";
+        this.dateItem.splice(0, 2);
+      }
+      if (this.dateItem.length < 2) return;
+
+      this.dateItem = this.dateItem
+        .sort((a, b) => Number(a.textContent) - Number(b.textContent));
+
+      this.dateItem[0].style.background = "#38470B";
+      this.dateItem[1].style.background = "#949C7C";
+    },
+    getInitDateItem() {
+      const span = document.querySelectorAll('.vc-day-content');
+      const first = new Date(this.range.start).getDate();
+      const second = new Date(this.range.end).getDate();
+      const startElement = [...span].find(el => el.textContent == first);
+      const endElement = [...span].find(el => el.textContent == second);
+
+      this.dateItem = [startElement, endElement];
+      this.addBackgroundColorToDateItems();
     }
   },
   computed: {
@@ -168,13 +201,14 @@ export default {
     } catch (error) {
       console.log("error", error);
     }
+    this.getInitDateItem();
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/scss/utils/fonts.scss';
-
+@import '@/assets/scss/vendors/v-calendar/v-calendar.scss';
 .rooms-info {
   display: flex;
   .carousel {
@@ -276,8 +310,9 @@ export default {
     }
   }
   .calendar {
-    height: 100px;
-    outline: 1px solid #f00;
+    p {
+      margin-bottom: 8px;
+    }
   }
 }
 </style>
