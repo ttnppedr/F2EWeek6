@@ -1,0 +1,31 @@
+::v-deep .vc-container { 
+  border-radius: 0;
+  border: 1px solid #38470B;
+  color: #38470B;
+}
+::v-deep .vc-weekday {
+  color: #38470B;
+}
+
+::v-deep .vc-title {
+  color: #38470B;
+  font-size: 12px;
+}
+
+::v-deep .vc-svg-icon {
+  fill: #38470B;
+}
+
+::v-deep .vc-header {
+  padding-top: 15px;
+}
+
+::v-deep .vc-highlight {
+  background: #d8d4d8;
+  border: transparent;
+}
+
+::v-deep .vc-text-gray-400 {
+  text-decoration: line-through;
+}
+
