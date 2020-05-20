@@ -45,7 +45,7 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 
 // components
-import RoomsType from "@/components/RoomsType.vue";
+import RoomsType from "@/components/pages/HomePage/RoomsType.vue";
 
 // assets
 import homepage1 from "@/assets/img/homepages/homepage1.jpeg";

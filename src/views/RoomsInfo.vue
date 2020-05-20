@@ -8,6 +8,9 @@
         previousIcon
         span 查看其他房型
       div(class="booking")
+        router-link(
+          :to="{ name: 'success' }"
+        ) 成功預約
         p 
           span ${{ calculatePrice() }} 
           | / {{ getPeriodOfDays }}晚
@@ -66,9 +69,9 @@ import {
   periodOfDays 
 } from '@/assets/utils/dateConvertor.js';
 // components
-import Carousel from '@/components/utils/Carousel.vue'
-import Popup from '@/components/utils/Popup.vue'
-import RoomAmenities from '@/components/RoomAmenities.vue'
+import Carousel from '@/components/pages/RoomsInfo/Carousel.vue'
+import Popup from '@/components/pages/RoomsInfo/Popup.vue'
+import RoomAmenities from '@/components/pages/RoomsInfo/RoomAmenities.vue'
 import Calendar from 'v-calendar/lib/components/calendar.umd'
 import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 // assets
