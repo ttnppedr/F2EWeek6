@@ -22,5 +22,9 @@ export default {
         description: "",
       }
     ]
-  } 
+  },
+  bookingStatus: {
+    success: false,
+    fail: '',
+  }
 }
