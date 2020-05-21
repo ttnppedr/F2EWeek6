@@ -7,40 +7,16 @@
 </template>
 
 <script>
-// plugin
-import { mapActions, mapGetters } from "vuex";
-
-// components
-
-// views
-
-
-// assets
 
 export default {
-  props: {
-
-  },
+  props: {},
   data() {
-    return {
-
-    }
+    return {}
   },
-  methods: {
-    ...mapActions({
-
-    })
-  },
-  computed: {
-    ...mapGetters({
-
-    })
-  },
-  components: {
-  },
-  mounted() {
-
-  }
+  methods: {},
+  computed: {},
+  components: {},
+  mounted() {}
 }
 </script>
 
@@ -56,7 +32,6 @@ export default {
       text-align: center;
     }
     .process-description {
-      height: 86px;
       padding-top: 14px;
       padding: 14px 5px;
       text-align: center;

@@ -7,9 +7,19 @@
         div.booking-form
           form
             label(for="name") 姓名
-            input(type="text" id="name" placeholder="請輸入姓名")
+            input(
+              type="text" 
+              id="name" 
+              placeholder="請輸入姓名"
+              v-model="name"
+            )
             label(for="telephone") 手機號碼
-            input(type="text" id="telephone" placeholder="請輸入手機號碼")
+            input(
+              type="text" 
+              id="telephone" 
+              placeholder="請輸入手機號碼"
+              v-model="telephone"
+            )
             P.checkIn 入住日期
             DatePicker(
               :value="checkInDate"
@@ -29,8 +39,10 @@
             p.days {{ selectedPeriodOfDays }}天，{{ normalDays }}晚平日
             div.price
               p 總計
-              p $1,380
-            button 確定送出
+              p ${{ totalPrice }}
+            button(
+              @click.prevent="emitBookingFormHandler"
+            ) 確定送出
             p.note 此預約系統僅預約功能，並不會對您進行收費
         div.booking-room-info
           div.room-description
@@ -139,7 +151,10 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      name: 'aa',
+      telephone: '0952555421'
+    }
   },
   methods: {
     ...mapActions({
@@ -156,6 +171,19 @@ export default {
     },
     useCalculateDays(date) {
       return calculateDays(date, 1);
+    },
+    emitBookingFormHandler() {
+      const date = calculatePeriodOfDays(this.checkIn, this.checkOut);
+      const id = this.$route.params.id;
+      const postObj = {
+        id,
+        postParams: {
+          name: this.name,
+          tel: this.telephone,
+          date,
+        }
+      };
+      this.$emit('propBookingRoomHandler', postObj);
     }
   },
   computed: {
