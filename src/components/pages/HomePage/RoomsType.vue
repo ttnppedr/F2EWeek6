@@ -41,12 +41,12 @@ export default {
 
 <style lang="scss" scoped>
 .room {
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   position: relative;
   text-align: center;
   font-size: 20px;
-  line-height: 400px;
+  line-height: 300px;
   cursor: pointer;
   img {
     width: 100%;
