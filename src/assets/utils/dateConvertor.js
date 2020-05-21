@@ -6,6 +6,18 @@ export const calculateDays = (start ,num) => {
   return new Date(sum);
 }
 
+export const calculatePeriodOfDays = (start, end) => {
+  const TIMESTAMP = 86400000;
+  const STARTTIMESTAMP = new Date(start).getTime();
+  const ENDTIMESTAMP = new Date(end).getTime();
+  const arr = [];
+  for (let i = STARTTIMESTAMP; i < ENDTIMESTAMP; i += TIMESTAMP) {
+    let date = formateDate(new Date(i));
+    arr.push(date);
+  }
+  return arr;
+}
+
 export const periodOfDays = (firstDay, secondDay) => {
   const TIMESTAMP = 86400000;
   const firstTimestamp = new Date(firstDay).getTime();
