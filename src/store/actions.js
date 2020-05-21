@@ -12,5 +12,19 @@ export default {
     const { data } = res;
     commit('updateSingleRooms', data);
     return res;
+  },
+  async bookingRoom({ commit }, { postParams, id }) {
+    try {
+      const res = await api.post(`/room/${id}`, { 
+        date: postParams.date,
+        name: postParams.name,
+        tel: postParams.tel
+      });
+      const { data } = res;
+      commit('upadteBookingRoomSucces', data);
+    } catch (error) {
+      const { data } = error.response;
+      commit('upadteBookingRoomFail', data);
+    }
   }
 }
