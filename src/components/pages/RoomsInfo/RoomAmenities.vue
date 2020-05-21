@@ -1,72 +1,159 @@
 <template lang="pug">
   div(class="room-amentities")
-    div(class="amentity")
-      CancelButton
-      OKButton
+    div(
+      class="amentity"
+      :class="{ 'no-provide': !roomAmentities['Breakfast'] }"
+    )
+      CancelButton(
+        v-if="!roomAmentities['Breakfast']"
+      )
+      OKButton(
+        v-if="roomAmentities['Breakfast']"
+      )
       div(class="amentity-img")
         Breakfast
       span 早餐
-    div(class="amentity")
-      CancelButton
-      OKButton
+    div(
+      class="amentity"
+      :class="{ 'no-provide': !roomAmentities['Mini-Bar'] }"
+    )
+      CancelButton(
+        v-if="!roomAmentities['Mini-Bar']"
+      )
+      OKButton(
+        v-if="roomAmentities['Mini-Bar']"
+      )
       div(class="amentity-img")
         PoolsideBar
       span Mini Bar
-    div(class="amentity")
-      CancelButton
-      OKButton
+    div(
+      class="amentity"
+      :class="{ 'no-provide': !roomAmentities['Room-Service'] }"
+    )
+      CancelButton(
+        v-if="!roomAmentities['Room-Service']"
+      )
+      OKButton(
+        v-if="roomAmentities['Room-Service']"
+      )
       div(class="amentity-img")
         RoomeService
       span Room Service
-    div(class="amentity")
-      CancelButton
-      OKButton
+    div(
+      class="amentity"
+      :class="{ 'no-provide': !roomAmentities['Wi-Fi'] }"
+    )
+      CancelButton(
+        v-if="!roomAmentities['Wi-Fi']"
+      )
+      OKButton(
+        v-if="roomAmentities['Wi-Fi']"
+      )
       div(class="amentity-img")
         Wifi
       span Wifi
-    div(class="amentity")
-      CancelButton
-      OKButton
+    div(
+      class="amentity"
+      :class="{ 'no-provide': !roomAmentities['Child-Friendly'] }"
+    )
+      CancelButton(
+        v-if="!roomAmentities['Child-Friendly']"
+      )
+      OKButton(
+        v-if="roomAmentities['Child-Friendly']"
+      )
       div(class="amentity-img")
         Children
       span 適合兒童
-    div(class="amentity")
+    div(
+      class="amentity"
+      :class="{ 'no-provide': !roomAmentities['Television'] }"
+    )
+      CancelButton(
+        v-if="roomAmentities['Television']"
+      )
+      OKButton(
+        v-if="roomAmentities['Television']"
+      )
       div(class="amentity-img")
         Telephone
       span 電話
-    div(class="amentity")
-      CancelButton
-      OKButton
+    div(
+      class="amentity"
+      :class="{ 'no-provide': !roomAmentities['Great-View'] }"
+    )
+      CancelButton(
+        v-if="!roomAmentities['Great-View']"
+      )
+      OKButton(
+        v-if="roomAmentities['Great-View']"
+      )
       div(class="amentity-img")
         Views
       span 漂亮的視野
-    div(class="amentity")
-      CancelButton
-      OKButton
+    div(
+      class="amentity"
+      :class="{ 'no-provide': !roomAmentities['Refrigerator'] }"
+    )
+      CancelButton(
+        v-if="!roomAmentities['Refrigerator']"
+      )
+      OKButton(
+        v-if="roomAmentities['Refrigerator']"
+      )
       div(class="amentity-img")
         Refrigerator
       span 冰箱
-    div(class="amentity")
-      CancelButton
-      OKButton
+    div(
+      class="amentity"
+      :class="{ 'no-provide': !roomAmentities['Sofa'] }"
+    )
+      CancelButton(
+        v-if="!roomAmentities['Sofa']"
+      )
+      OKButton(
+        v-if="roomAmentities['Sofa']"
+      )
       div(class="amentity-img")
-        Sofa
+        Sofa )
       span 沙發
-    div(class="amentity")
-      CancelButton
-      OKButton
+    div(
+      class="amentity"
+      :class="{ 'no-provide': !roomAmentities['Pet-Friendly'] }"
+    )
+      CancelButton(
+        v-if="!roomAmentities['Pet-Friendly']"
+      )
+      OKButton(
+        v-if="roomAmentities['Pet-Friendly']"
+      )
       div(class="amentity-img")
         Pets 
       span 攜帶寵物
-    div(class="amentity")
-      CancelButton
-      OKButton
+    div(
+      class="amentity"
+      :class="{ 'no-provide': !roomAmentities['Smoke-Free'] }"
+    )
+      CancelButton(
+        v-if="!roomAmentities['Smoke-Free']"
+      )
+      OKButton(
+        v-if="roomAmentities['Smoke-Free']"
+      )
       div(class="amentity-img")
         NoSmoke
       span 全面禁菸
-    div(class="amentity")
-      CancelButton
-      OKButton
+    div(
+      class="amentity"
+      :class="{ 'no-provide': !roomAmentities['Air-Conditioner'] }"
+    )
+      CancelButton(
+        v-if="!roomAmentities['Air-Conditioner']"
+      )
+      OKButton(
+        v-if="roomAmentities['Air-Conditioner']"
+        :class="{ 'no-provide': roomAmentities['Air-Conditioner'] }"
+      )
       div(class="amentity-img")
         AirShift
       span 空調
@@ -100,7 +187,10 @@ import OKButton from '@/components/base/OKButton.vue'
 
 export default {
   props: {
-
+    roomAmentities: {
+      type: Object,
+      required: true
+    }
   },
   data() {
     return {
@@ -156,5 +246,8 @@ export default {
     span {
       font-size: 12px;
     }
+  }
+  .no-provide {
+    opacity: 0.2; 
   }
 </style>
