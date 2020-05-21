@@ -125,7 +125,7 @@ export default {
 .home-page-container {
   position: relative;
   display: flex;
-  padding: 150px 100px;
+  padding: 40px 100px;
   justify-content: center;
   &::before {
     content: "";
@@ -140,7 +140,7 @@ export default {
   .logo-bar {
     position: relative;
     z-index: 3;
-    flex: 0 1 9%;
+    flex: 0 1 10%;
     margin-top: 100px;
     .logo {
       margin-bottom: 240px;
@@ -185,7 +185,7 @@ export default {
   .rooms {
     position: relative;
     z-index: 3;
-    flex: 0 1 1200px;
+    flex: 0 1 900px;
     align-self: center;
     margin-left: 10%;
     > div {
