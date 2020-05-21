@@ -21,10 +21,10 @@ export default {
         tel: postParams.tel
       });
       const { data } = res;
-      commit('upadteBookingRoomSucces', data);
+      commit('updateBookingRoomSucces', data);
     } catch (error) {
       const { data } = error.response;
-      commit('upadteBookingRoomFail', data);
+      commit('updateBookingRoomFail', data);
     }
   }
 }
