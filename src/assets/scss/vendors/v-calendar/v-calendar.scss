@@ -25,7 +25,15 @@
   border: transparent;
 }
 
+// 新增禁用符號
 ::v-deep .vc-text-gray-400 {
   text-decoration: line-through;
 }
 
+::v-deep .vc-text-blue-900 {
+  color: #ffffff;
+}
+
+::v-deep .vc-rounded {
+  border-radius: 0;
+}
