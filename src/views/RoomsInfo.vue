@@ -125,7 +125,7 @@ export default {
         : this.imgIndex
     },
     calculatePrice() {
-      const normalDay = ['一', '二', '三', '四', '五'], holidayDay = ['六', '日'];
+      const normalDay = ['一', '二', '三', '四'], holidayDay = ['五', '六', '日'];
       const normalDayCost = this.roomPrice.normalDayPrice;
       const holidayDayCost = this.roomPrice.holidayPrice;
       const normalDayPrice = this.calculateRoomPrice(normalDay, normalDayCost);
@@ -150,7 +150,7 @@ export default {
       const week = ['日', '一', '二', '三', '四', '五', '六'];
       const period = periodOfDays(this.range.start, this.range.end);
 
-      for (let i = 1; i <= period; i++) {
+      for (let i = 0; i < period; i++) {
         let periodTimestamps = calculateDays(this.range.start, i);
         daysNumber.push(new Date(periodTimestamps).getDay());
       }
