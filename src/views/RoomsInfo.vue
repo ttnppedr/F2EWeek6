@@ -36,7 +36,9 @@
             v-for="(description, index) in roomUseGuide" 
             :key="index"
           ) {{ description }} 
-        RoomAmenities
+        RoomAmenities(
+          :roomAmentities="roomAmentities"
+        )
       div(class="calendar")
         p 空房狀態查詢
         DatePicker(
