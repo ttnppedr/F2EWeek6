@@ -12,7 +12,7 @@
           :to="{ name: 'success' }"
         ) 成功預約
         p 
-          span ${{ calculatePrice() }} 
+          span ${{ totalPrice }} 
           | / {{ getPeriodOfDays }}晚
         button(
           type="button"
@@ -212,6 +212,10 @@ export default {
     }),
     getPeriodOfDays() {
       return periodOfDays(this.range.start, this.range.end);
+    },
+    totalPrice() {
+      const getTotalPrice = this.calculatePrice();
+      return formatCurrency(getTotalPrice);
     }
   },
   components: {
