@@ -51,5 +51,9 @@ export default {
       .split('.')
       .filter(str => str);
     return splitDescription;
+  },
+  roomAmentities: ({ singleRoom }) => {
+    const { amenities } = singleRoom.room[0];
+    return amenities;
   }
 }
