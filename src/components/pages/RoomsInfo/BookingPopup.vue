@@ -1,7 +1,7 @@
 <template lang="pug">
   transition(name="fade")
     div.booking-popup(
-      v-if="!bookingPopup"
+      v-if="bookingPopup"
     )
       div.container
         div.booking-form
@@ -26,7 +26,7 @@
               :masks="{ weekdays: 'WW', L: 'YYYY - MM - DD' }"
               :available-dates='{ start: useCalculateDays(checkInDate), end: null }'
             )
-            p.days 2天，1晚平日
+            p.days {{ selectedPeriodOfDays }}天，{{ normalDays }}晚平日
             div.price
               p 總計
               p $1,380
@@ -87,8 +87,11 @@
 import { mapActions, mapGetters } from "vuex";
 import { 
   calculateDays,
+  calculatePeriodOfDays
 } from '@/assets/utils/dateConvertor.js';
-
+import {
+  formatCurrency
+} from '@/assets/utils/currencyConvertor.js';
 // components
 import CrossButton from '@/components/base/CrossButton.vue'
 import ArrowButton from '@/components/base/ArrowButton.vue'
@@ -122,6 +125,18 @@ export default {
       type: Date,
       required: true
     },
+    calculatePrice: {
+      type: Number,
+      required: true
+    },
+    getSelectedDays: {
+      type: Array,
+      required: true
+    },
+    getPeriodOfDays: {
+      type: Number,
+      required: true
+    }
   },
   data() {
     return {}
@@ -152,6 +167,22 @@ export default {
     },
     checkInDate() {
       return this.checkIn;
+    },
+    totalPrice() {
+      return formatCurrency(this.calculatePrice);
+    },
+    normalDays() {
+      const normalDay = ['一', '二', '三', '四'];
+      return this.getSelectedDays.reduce((total, day) => {
+        let isNormalDay = normalDay.find(normal => normal == day);
+        if (!isNormalDay) return total;
+        
+        total += 1;
+        return total;
+      }, 0);  
+    },
+    selectedPeriodOfDays() {
+      return this.getPeriodOfDays + 1;
     }
   },
   components: {

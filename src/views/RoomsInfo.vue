@@ -16,7 +16,7 @@
           | / {{ getPeriodOfDays }}晚
         button(
           type="button"
-          @click="bookingPopup = false;"
+          @click="bookingPopup = true;"
         ) Booking now
       Carousel(
         @click.native="showPopup = true"
@@ -63,8 +63,11 @@
     )
     BookingPopup(
       :roomAmentities="roomAmentities"
-      :checkIn="checkIn"
-      :checkOut="checkOut"
+      :calculatePrice="calculatePrice()"
+      :getSelectedDays="getSelectedDays()"
+      :getPeriodOfDays="getPeriodOfDays"
+      :checkIn="range.start"
+      :checkOut="range.end"
       :bookingPopup="bookingPopup"
       @propBookingPopup="bookingPopup = false"
       @updateCheckoutHandler="updateCheckoutHandler"
@@ -193,8 +196,11 @@ export default {
       this.dateItem = [startElement, endElement];
       this.addBackgroundColorToDateItems();
     },
+    updateCheckInHandler(date) {
+      this.range.start = date;
+    },
     updateCheckoutHandler(date) {
-      this.checkOut = date;
+      this.range.end = date;
     },
     updateCheckInHandler(date) {
       this.checkIn = date;
