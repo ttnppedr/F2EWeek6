@@ -81,6 +81,7 @@ export default {
     }
   }
   .cross-sm {
+    cursor: pointer;
     &::before, &::after {
       width: 15px;
       height: 2px;
