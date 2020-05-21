@@ -63,8 +63,12 @@
     )
     BookingPopup(
       :roomAmentities="roomAmentities"
+      :checkIn="checkIn"
+      :checkOut="checkOut"
       :bookingPopup="bookingPopup"
       @propBookingPopup="bookingPopup = false"
+      @updateCheckoutHandler="updateCheckoutHandler"
+      @updateCheckInHandler="updateCheckInHandler"
     )
 </template>
 
@@ -106,6 +110,8 @@ export default {
       },
       dateItem: [],
       bookingPopup: false,
+      checkIn: calculateDays(new Date(), 0),
+      checkOut: calculateDays(new Date(), 1),
     }
   },
   methods: {
@@ -186,6 +192,12 @@ export default {
 
       this.dateItem = [startElement, endElement];
       this.addBackgroundColorToDateItems();
+    },
+    updateCheckoutHandler(date) {
+      this.checkOut = date;
+    },
+    updateCheckInHandler(date) {
+      this.checkIn = date;
     }
   },
   computed: {

@@ -12,17 +12,19 @@
             input(type="text" id="telephone" placeholder="請輸入手機號碼")
             P.checkIn 入住日期
             DatePicker(
-              v-model="checkIn"
+              :value="checkInDate"
+              @input="emitCheckInHandler($event)"
               locale="en-US"
               :masks="{ weekdays: 'WW', L: 'YYYY - MM - DD' }"
               :available-dates='{ start: new Date(), end: null }'
             )
             p.checkOut 退房日期
             DatePicker(
-              v-model="checkOut"
+              :value="checkOutDate"
+              @input="emitCheckOutHandler($event)"
               locale="en-US"
               :masks="{ weekdays: 'WW', L: 'YYYY - MM - DD' }"
-              :available-dates='{ start: new Date(), end: null }'
+              :available-dates='{ start: useCalculateDays(checkInDate), end: null }'
             )
             p.days 2天，1晚平日
             div.price
@@ -111,13 +113,18 @@ export default {
     roomAmentities: {
       type: Object,
       required: true
-    }
+    },
+    checkOut: {
+      type: Date,
+      required: true
+    },
+    checkIn: {
+      type: Date,
+      required: true
+    },
   },
   data() {
-    return {
-      checkIn: calculateDays(new Date(), 0),
-      checkOut: calculateDays(new Date(), 1),
-    }
+    return {}
   },
   methods: {
     ...mapActions({
@@ -125,12 +132,27 @@ export default {
     }),
     closePupop() {
       this.$emit('propBookingPopup');
+    },
+    emitCheckOutHandler(date) {
+      this.$emit('updateCheckoutHandler', date);
+    },
+    emitCheckInHandler(date) {
+      this.$emit('updateCheckInHandler', date);
+    },
+    useCalculateDays(date) {
+      return calculateDays(date, 1);
     }
   },
   computed: {
     ...mapGetters({
 
-    })
+    }),
+    checkOutDate() {
+      return this.checkOut;
+    },
+    checkInDate() {
+      return this.checkIn;
+    }
   },
   components: {
     CrossButton,
