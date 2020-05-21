@@ -72,6 +72,7 @@
       @propBookingPopup="bookingPopup = false"
       @updateCheckoutHandler="updateCheckoutHandler"
       @updateCheckInHandler="updateCheckInHandler"
+      @propBookingRoomHandler="propBookingRoomHandler"
     )
 </template>
 
@@ -83,6 +84,9 @@ import {
   calculateDays,
   periodOfDays 
 } from '@/assets/utils/dateConvertor.js';
+import {
+  formatCurrency
+} from '@/assets/utils/currencyConvertor.js';
 // components
 import Carousel from '@/components/pages/RoomsInfo/Carousel.vue'
 import Popup from '@/components/pages/RoomsInfo/Popup.vue'
@@ -113,13 +117,12 @@ export default {
       },
       dateItem: [],
       bookingPopup: false,
-      checkIn: calculateDays(new Date(), 0),
-      checkOut: calculateDays(new Date(), 1),
     }
   },
   methods: {
     ...mapActions({
-      getSingleRoom: 'getSingleRoom'
+      getSingleRoom: 'getSingleRoom',
+      bookingRoom: 'bookingRoom'
     }),
     goPreviousPage() {
       this.$router.push({ name: 'HomePage' });
@@ -202,8 +205,8 @@ export default {
     updateCheckoutHandler(date) {
       this.range.end = date;
     },
-    updateCheckInHandler(date) {
-      this.checkIn = date;
+    async propBookingRoomHandler(postObj) {
+      await this.bookingRoom(postObj);
     }
   },
   computed: {
