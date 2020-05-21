@@ -27,6 +27,7 @@ export default {
       const obj = {
         'large': 'cross-large',
         'md': 'cross-md',
+        'sm': 'cross-sm'
       }
       return obj[this.crossSize];
     },
@@ -46,8 +47,9 @@ export default {
 <style lang="scss" scoped>
   .cross {
     position: absolute;
-    top: 60px;
-    right: 60px;
+    top: 30px;
+    right: 30px;
+    padding: 10px;
     &::before, &::after {
       content: '';
       position: absolute;
@@ -77,6 +79,12 @@ export default {
       width: 30px;
       height: 2px;
     }
+  }
+  .cross-sm {
+    &::before, &::after {
+      width: 15px;
+      height: 2px;
+    }    
   }
   .cross-white {
     &::before, &::after {
