@@ -16,6 +16,7 @@
           | / {{ getPeriodOfDays }}晚
         button(
           type="button"
+          @click="bookingPopup = false;"
         ) Booking now
       Carousel(
         @click.native="showPopup = true"
@@ -58,6 +59,11 @@
       @propChangePrevImgIndex="changePrevImgIndex"
       @propChangeNextImgIndex="changeNextImgIndex"
     )
+    BookingPopup(
+      :roomAmentities="roomAmentities"
+      :bookingPopup="bookingPopup"
+      @propBookingPopup="bookingPopup = false"
+    )
 </template>
 
 <script>
@@ -74,6 +80,8 @@ import Popup from '@/components/pages/RoomsInfo/Popup.vue'
 import RoomAmenities from '@/components/pages/RoomsInfo/RoomAmenities.vue'
 import Calendar from 'v-calendar/lib/components/calendar.umd'
 import DatePicker from 'v-calendar/lib/components/date-picker.umd'
+import BookingPopup from '@/components/pages/RoomsInfo/BookingPopup'
+
 // assets
 import previousIcon from '@/assets/img/rooms/surface1.svg'
 
@@ -95,6 +103,7 @@ export default {
         end: calculateDays(new Date(), 1)
       },
       dateItem: [],
+      bookingPopup: false,
     }
   },
   methods: {
@@ -185,6 +194,7 @@ export default {
       roomPrice: "roomPrice",
       roomCheckInandOut: "roomCheckInandOut",
       roomUseGuide: "roomUseGuide",
+      roomAmentities: "roomAmentities"
     }),
     getPeriodOfDays() {
       return periodOfDays(this.range.start, this.range.end);
@@ -195,7 +205,8 @@ export default {
     Carousel,
     Popup,
     RoomAmenities,
-    DatePicker
+    DatePicker,
+    BookingPopup
   },
   async mounted() {
     try {
