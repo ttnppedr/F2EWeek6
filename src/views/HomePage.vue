@@ -140,7 +140,7 @@ export default {
   .logo-bar {
     position: relative;
     z-index: 3;
-    flex: 0 1 10%;
+    flex: 0 1 11%;
     margin-top: 100px;
     .logo {
       margin-bottom: 240px;
@@ -189,7 +189,6 @@ export default {
     align-self: center;
     margin-left: 10%;
     > div {
-      // height: 72%;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
