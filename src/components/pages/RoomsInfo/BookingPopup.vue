@@ -47,10 +47,10 @@
         div.booking-room-info
           div.room-description
             h2 
-              span Single Room
+              span {{ singleRoomName }}
               hr
-            p.room-specification 1人・ 單人床・附早餐・ 衛浴1間・18平方公尺 
-            p.price 平日（一～四）價格：1380 / 假日（五〜日）價格：1500
+            p.room-specification {{ roomSpecification }}
+            p.price 平日（一～四）價格：{{ normalDayCost }} / 假日（五〜日）價格：{{ holidayCost }}
             div.amentities
               BookingAmenities(
                 :roomAmentities="roomAmentities"
@@ -148,6 +148,14 @@ export default {
     },
     holidayCost: {
       type: Number,
+      required: true
+    },
+    roomSpecification: {
+      type:String,
+      required: true
+    },
+    singleRoomName: {
+      type:String,
       required: true
     },
   },

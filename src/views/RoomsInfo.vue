@@ -59,6 +59,8 @@
       @propChangeNextImgIndex="changeNextImgIndex"
     )
     BookingPopup(
+      :singleRoomName="singleRoomName"
+      :roomSpecification="roomSpecification(singleRoomName)"
       :roomAmentities="roomAmentities"
       :checkIn="range.start"
       :checkOut="range.end"
