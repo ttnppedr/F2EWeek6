@@ -166,10 +166,10 @@ export default {
       this.$emit('propBookingPopup');
     },
     emitCheckOutHandler(date) {
-      this.start = date;
+      this.end = date;
     },
     emitCheckInHandler(date) {
-      this.end = date;
+      this.start = date;
     },
     useCalculateDays(date) {
       return calculateDays(date, 1);
@@ -193,10 +193,10 @@ export default {
 
     }),
     checkOutDate() {
-      return this.checkOut;
+      return this.end;
     },
     checkInDate() {
-      return this.checkIn;
+      return this.start;
     },
     totalPrice() {
       return formatCurrency(this.calculatePrice);
