@@ -26,7 +26,7 @@
               @input="checkInHandler($event)"
               locale="en-US"
               :masks="{ weekdays: 'WW', L: 'YYYY - MM - DD' }"
-              :available-dates='{ start: new Date(), end: null }'
+              :available-dates='{ start: useCalculateDays(new Date()), end: null }'
             )
             p.checkOut 退房日期
             DatePicker(
