@@ -58,13 +58,13 @@
       @propChangePrevImgIndex="changePrevImgIndex"
       @propChangeNextImgIndex="changeNextImgIndex"
     )
+      //- :calculatePrice="totalPrice"
+      //- :getSelectedDays="getSelectedDays()"
+      //- :getPeriodOfDays="getPeriodOfDays"
     BookingPopup(
       :roomAmentities="roomAmentities"
-      :calculatePrice="calculatePrice()"
-      :getSelectedDays="getSelectedDays()"
-      :getPeriodOfDays="getPeriodOfDays"
-      :checkIn="checkIn"
-      :checkOut="checkOut"
+      :checkIn="range.start"
+      :checkOut="range.end"
       :bookingPopup="bookingPopup"
       @propBookingPopup="bookingPopup = false"
       @propBookingRoomHandler="propBookingRoomHandler"
@@ -89,6 +89,11 @@ import {
 import {
   formatCurrency
 } from '@/assets/utils/currencyConvertor.js';
+import {
+  getSelectedDays,
+  calculateRoomPrice,
+  calculatePrice
+} from '@/assets/utils/aboutRoomCalculate.js'
 // components
 import Carousel from '@/components/pages/RoomsInfo/Carousel.vue'
 import Popup from '@/components/pages/RoomsInfo/Popup.vue'
@@ -120,8 +125,8 @@ export default {
       dateItem: [],
       bookingPopup: false,
       showReservationPopup: false,
-      checkIn: calculateDays(new Date(), 1),
-      checkOut: calculateDays(new Date(), 2)
+      // checkIn: calculateDays(new Date(), 1),
+      // checkOut: calculateDays(new Date(), 2)
     }
   },
   methods: {
@@ -142,39 +147,6 @@ export default {
       this.imgIndex = this.imgIndex < singleRoomImgsLen - 1
         ? this.imgIndex + 1
         : this.imgIndex
-    },
-    calculatePrice() {
-      const normalDay = ['一', '二', '三', '四'], holidayDay = ['五', '六', '日'];
-      const normalDayCost = this.roomPrice.normalDayPrice;
-      const holidayDayCost = this.roomPrice.holidayPrice;
-      const normalDayPrice = this.calculateRoomPrice(normalDay, normalDayCost);
-      const holidayDayPrice = this.calculateRoomPrice(holidayDay, holidayDayCost);
-
-      return !(holidayDayPrice + normalDayPrice)
-        ? 0
-        : holidayDayPrice + normalDayPrice 
-    },
-    calculateRoomPrice(dayType, cost) {
-      const selectedDays = this.getSelectedDays();
-      return selectedDays.reduce((total, day) => {
-        let isSelectedNormal = dayType.some(selected => selected == day);
-        if (!isSelectedNormal) return total;
-
-        total += cost;
-        return total;
-      }, 0);
-    },
-    getSelectedDays() {
-      const daysNumber = [];
-      const week = ['日', '一', '二', '三', '四', '五', '六'];
-      const period = periodOfDays(this.range.start, this.range.end);
-
-      for (let i = 0; i < period; i++) {
-        let periodTimestamps = calculateDays(this.range.start, i);
-        daysNumber.push(new Date(periodTimestamps).getDay());
-      }
-
-      return daysNumber.map(num => week[num]);
     },
     getDateItem(event) {
       this.dateItem.push(event.target);
@@ -229,8 +201,14 @@ export default {
       return periodOfDays(this.range.start, this.range.end);
     },
     totalPrice() {
-      const getTotalPrice = this.calculatePrice();
-      return formatCurrency(getTotalPrice);
+      const selectedDays = getSelectedDays(this.range.start, this.range.end);
+      const normalDay = ['一', '二', '三', '四'], holidayDay = ['五', '六', '日'];
+      const normalDayCost = this.roomPrice.normalDayPrice;
+      const holidayDayCost = this.roomPrice.holidayPrice;
+      const normalDayPrice = calculateRoomPrice(normalDay, normalDayCost, selectedDays);
+      const holidayDayPrice = calculateRoomPrice(holidayDay, holidayDayCost, selectedDays);
+      const getTotalPrice = calculatePrice(holidayDayPrice, normalDayPrice);
+      return getTotalPrice;
     }
   },
   components: {

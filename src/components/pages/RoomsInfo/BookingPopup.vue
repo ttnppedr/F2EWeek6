@@ -36,10 +36,10 @@
               :masks="{ weekdays: 'WW', L: 'YYYY - MM - DD' }"
               :available-dates='{ start: useCalculateDays(checkInDate), end: null }'
             )
-            p.days {{ selectedPeriodOfDays }}天，{{ normalDays }}晚平日
+            //- p.days {{ selectedPeriodOfDays }}天，{{ normalDays }}晚平日
             div.price
               p 總計
-              p ${{ totalPrice }}
+              //- p ${{ totalPrice }}
             button(
               @click.prevent="emitBookingFormHandler"
             ) 確定送出
@@ -137,18 +137,18 @@ export default {
       type: Date,
       required: true
     },
-    calculatePrice: {
-      type: Number,
-      required: true
-    },
-    getSelectedDays: {
-      type: Array,
-      required: true
-    },
-    getPeriodOfDays: {
-      type: Number,
-      required: true
-    }
+    // calculatePrice: {
+    //   type: Number,
+    //   required: true
+    // },
+    // getSelectedDays: {
+    //   type: Array,
+    //   required: true
+    // },
+    // getPeriodOfDays: {
+    //   type: Number,
+    //   required: true
+    // }
   },
   data() {
     return {
@@ -195,9 +195,14 @@ export default {
 
     }),
     checkOutDate() {
-      return this.end;
+      return this.bookingPopup
+        ? this.end
+        : this.end = this.checkOut
     },
     checkInDate() {
+      this.bookingPopup
+        ? this.start
+        : this.start = this.checkIn
       if(
         new Date(this.start).getDate() >= 
         new Date(this.end).getDate()
