@@ -333,6 +333,7 @@ export default {
         height: 40px;
         padding: 5px 10px;
         margin-bottom: 20px;
+        font-size: 16px;
         &::placeholder {
           font-size: 16px;
           color: #38470B;
