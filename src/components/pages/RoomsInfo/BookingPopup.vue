@@ -23,15 +23,15 @@
             P.checkIn 入住日期
             DatePicker(
               :value="checkInDate"
-              @input="emitCheckInHandler($event)"
+              @input="checkInHandler($event)"
               locale="en-US"
               :masks="{ weekdays: 'WW', L: 'YYYY - MM - DD' }"
-              :available-dates='{ start: new Date(), end: null }'
+              :available-dates='{ start: start, end: null }'
             )
             p.checkOut 退房日期
             DatePicker(
               :value="checkOutDate"
-              @input="emitCheckOutHandler($event)"
+              @input="checkOutHandler($event)"
               locale="en-US"
               :masks="{ weekdays: 'WW', L: 'YYYY - MM - DD' }"
               :available-dates='{ start: useCalculateDays(checkInDate), end: null }'
@@ -156,6 +156,8 @@ export default {
       telephone: '0952555421',
       start: this.checkIn,
       end: this.checkOut,
+      startArr: [],
+      endArr: []
     }
   },
   methods: {
@@ -165,10 +167,10 @@ export default {
     closePupop() {
       this.$emit('propBookingPopup');
     },
-    emitCheckOutHandler(date) {
+    checkOutHandler(date) {
       this.end = date;
     },
-    emitCheckInHandler(date) {
+    checkInHandler(date) {
       this.start = date;
     },
     useCalculateDays(date) {
@@ -196,6 +198,13 @@ export default {
       return this.end;
     },
     checkInDate() {
+      if(
+        new Date(this.start).getDate() >= 
+        new Date(this.end).getDate()
+      ) {
+        const period = new Date(this.start).getDay() - new Date(this.end).getDay();
+        this.end = calculateDays(this.end, Math.abs(period) + 1);
+      }
       return this.start;
     },
     totalPrice() {

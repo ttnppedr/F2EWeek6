@@ -45,7 +45,7 @@
           locale="en-US"
           :masks="{ weekdays: 'WW' }"
           :columns="$screens({ default: 1, lg: 2 })"
-          :available-dates='{ start: new Date(), end: null }'
+          :available-dates='{ start: range.start, end: null }'
           @click.native="getDateItem($event)"
         )
     Popup(
@@ -114,14 +114,14 @@ export default {
       showPopup: false,
       imgIndex: 0,
       range: {
-        start: calculateDays(new Date(), 0),
-        end: calculateDays(new Date(), 1)
+        start: calculateDays(new Date(), 1),
+        end: calculateDays(new Date(), 2)
       },
       dateItem: [],
       bookingPopup: false,
       showReservationPopup: false,
-      checkIn: calculateDays(new Date(), 0),
-      checkOut: calculateDays(new Date(), 1)
+      checkIn: calculateDays(new Date(), 1),
+      checkOut: calculateDays(new Date(), 2)
     }
   },
   methods: {
