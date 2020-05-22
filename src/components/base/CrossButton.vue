@@ -68,6 +68,7 @@ export default {
 
   .cross-large {
     top: 50%;
+    right: 41%;
     &::before, &::after {
       width: 60px;
       height: 4px;
