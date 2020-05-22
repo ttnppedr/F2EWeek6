@@ -8,9 +8,6 @@
         previousIcon
         span 查看其他房型
       div(class="booking")
-        router-link(
-          :to="{ name: 'success' }"
-        ) 成功預約
         p 
           span ${{ totalPrice }} 
           | / {{ getPeriodOfDays }}晚
@@ -66,13 +63,18 @@
       :calculatePrice="calculatePrice()"
       :getSelectedDays="getSelectedDays()"
       :getPeriodOfDays="getPeriodOfDays"
-      :checkIn="range.start"
-      :checkOut="range.end"
+      :checkIn="checkIn"
+      :checkOut="checkOut"
       :bookingPopup="bookingPopup"
       @propBookingPopup="bookingPopup = false"
-      @updateCheckoutHandler="updateCheckoutHandler"
-      @updateCheckInHandler="updateCheckInHandler"
       @propBookingRoomHandler="propBookingRoomHandler"
+      @propClickToCloseReservationPopup="showReservationPopup = true"
+    )
+    ReservationPopup(
+      v-if="showReservationPopup"
+      @propClickToCloseReservationPopup="showReservationPopup = false"
+      :bookingRoomSuccess="bookingRoomSuccess"
+      :bookingRoomFail="bookingRoomFail"
     )
 </template>
 
@@ -94,7 +96,7 @@ import RoomAmenities from '@/components/pages/RoomsInfo/RoomAmenities.vue'
 import Calendar from 'v-calendar/lib/components/calendar.umd'
 import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 import BookingPopup from '@/components/pages/RoomsInfo/BookingPopup'
-
+import ReservationPopup from '@/components/pages/RoomsInfo/ReservationPopup.vue'
 // assets
 import previousIcon from '@/assets/img/rooms/surface1.svg'
 
@@ -117,6 +119,9 @@ export default {
       },
       dateItem: [],
       bookingPopup: false,
+      showReservationPopup: false,
+      checkIn: calculateDays(new Date(), 0),
+      checkOut: calculateDays(new Date(), 1)
     }
   },
   methods: {
@@ -198,12 +203,6 @@ export default {
 
       this.dateItem = [startElement, endElement];
       this.addBackgroundColorToDateItems();
-    },
-    updateCheckInHandler(date) {
-      this.range.start = date;
-    },
-    updateCheckoutHandler(date) {
-      this.range.end = date;
     },
     async propBookingRoomHandler(postObj) {
       const res = await this.bookingRoom(postObj);

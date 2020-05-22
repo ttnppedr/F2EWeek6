@@ -153,7 +153,9 @@ export default {
   data() {
     return {
       name: 'aa',
-      telephone: '0952555421'
+      telephone: '0952555421',
+      start: this.checkIn,
+      end: this.checkOut,
     }
   },
   methods: {
