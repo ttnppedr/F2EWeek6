@@ -22,24 +22,24 @@
             )
             P.checkIn 入住日期
             DatePicker(
-              :value="checkInDate"
+              :value="checkInDate()"
               @input="checkInHandler($event)"
               locale="en-US"
               :masks="{ weekdays: 'WW', L: 'YYYY - MM - DD' }"
-              :available-dates='{ start: start, end: null }'
+              :available-dates='{ start: new Date(), end: null }'
             )
             p.checkOut 退房日期
             DatePicker(
-              :value="checkOutDate"
+              :value="checkOutDate()"
               @input="checkOutHandler($event)"
               locale="en-US"
               :masks="{ weekdays: 'WW', L: 'YYYY - MM - DD' }"
-              :available-dates='{ start: useCalculateDays(checkInDate), end: null }'
+              :available-dates='{ start: useCalculateDays(checkInDate()), end: null }'
             )
-            //- p.days {{ selectedPeriodOfDays }}天，{{ normalDays }}晚平日
+            p.days {{ selectedPeriodOfDays }}天，{{ normalDays }}晚平日
             div.price
               p 總計
-              //- p ${{ totalPrice }}
+              p ${{ totalPrice | currencyComma }}
             button(
               @click.prevent="emitBookingFormHandler"
             ) 確定送出
@@ -104,6 +104,11 @@ import {
 import {
   formatCurrency
 } from '@/assets/utils/currencyConvertor.js';
+import {
+  getSelectedDays,
+  calculateRoomPrice,
+  calculatePrice
+} from '@/assets/utils/aboutRoomCalculate.js'
 // components
 import CrossButton from '@/components/base/CrossButton.vue'
 import ArrowButton from '@/components/base/ArrowButton.vue'
@@ -137,18 +142,14 @@ export default {
       type: Date,
       required: true
     },
-    // calculatePrice: {
-    //   type: Number,
-    //   required: true
-    // },
-    // getSelectedDays: {
-    //   type: Array,
-    //   required: true
-    // },
-    // getPeriodOfDays: {
-    //   type: Number,
-    //   required: true
-    // }
+    normalDayCost: {
+      type: Number,
+      required: true
+    },
+    holidayCost: {
+      type: Number,
+      required: true
+    },
   },
   data() {
     return {
@@ -156,8 +157,6 @@ export default {
       telephone: '0952555421',
       start: this.checkIn,
       end: this.checkOut,
-      startArr: [],
-      endArr: []
     }
   },
   methods: {
@@ -165,6 +164,8 @@ export default {
 
     }),
     closePupop() {
+      this.start = this.checkIn;
+      this.end= this.checkOut;
       this.$emit('propBookingPopup');
     },
     checkOutHandler(date) {
@@ -188,21 +189,11 @@ export default {
         }
       };
       this.$emit('propBookingRoomHandler', postObj);
-    }
-  },
-  computed: {
-    ...mapGetters({
-
-    }),
+    },
     checkOutDate() {
-      return this.bookingPopup
-        ? this.end
-        : this.end = this.checkOut
+      return this.end;
     },
     checkInDate() {
-      this.bookingPopup
-        ? this.start
-        : this.start = this.checkIn
       if(
         new Date(this.start).getDate() >= 
         new Date(this.end).getDate()
@@ -212,12 +203,23 @@ export default {
       }
       return this.start;
     },
+  },
+  computed: {
+    ...mapGetters({
+
+    }),
     totalPrice() {
-      return formatCurrency(this.calculatePrice);
+      if(!this.normalDayCost || !this.holidayCost) return;
+      const selectedDays = getSelectedDays(this.start, this.end);
+      const normalDay = ['一', '二', '三', '四'], holidayDay = ['五', '六', '日'];
+      const normalDayPrice = calculateRoomPrice(normalDay, this.normalDayCost, selectedDays);
+      const holidayDayPrice = calculateRoomPrice(holidayDay, this.holidayCost, selectedDays);
+      const getTotalPrice = calculatePrice(holidayDayPrice, normalDayPrice);
+      return getTotalPrice;
     },
     normalDays() {
       const normalDay = ['一', '二', '三', '四'];
-      return this.getSelectedDays.reduce((total, day) => {
+      return getSelectedDays(this.start, this.end).reduce((total, day) => {
         let isNormalDay = normalDay.find(normal => normal == day);
         if (!isNormalDay) return total;
         
@@ -226,7 +228,8 @@ export default {
       }, 0);  
     },
     selectedPeriodOfDays() {
-      return this.getPeriodOfDays + 1;
+      const selectedDays = getSelectedDays(this.start, this.end);
+      return selectedDays.length + 1;
     }
   },
   components: {
@@ -240,9 +243,24 @@ export default {
     ArrowButton,
     Arrow
   },
-  mounted() {
-
-  }
+  watch: {
+    checkIn(value) {
+      this.bookingPopup
+        ? this.start
+        : this.start = this.checkIn
+    },
+    checkOut(value) {
+      this.bookingPopup
+        ? this.end
+        : this.end = this.checkOut
+    }
+  },
+  filters: {
+    currencyComma(value) {
+      return formatCurrency(value);
+    }
+  },
+  mounted() {}
 }
 </script>
 

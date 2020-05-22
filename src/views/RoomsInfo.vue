@@ -9,11 +9,11 @@
         span 查看其他房型
       div(class="booking")
         p 
-          span ${{ totalPrice }} 
+          span ${{ totalPrice | currencyComma }} 
           | / {{ getPeriodOfDays }}晚
         button(
           type="button"
-          @click="bookingPopup = true;"
+          @click="bookingPopup = true"
         ) Booking now
       Carousel(
         @click.native="showPopup = true"
@@ -45,7 +45,7 @@
           locale="en-US"
           :masks="{ weekdays: 'WW' }"
           :columns="$screens({ default: 1, lg: 2 })"
-          :available-dates='{ start: range.start, end: null }'
+          :available-dates='{ start: useCalculateDays(new Date()), end: null }'
           @click.native="getDateItem($event)"
         )
     Popup(
@@ -58,14 +58,13 @@
       @propChangePrevImgIndex="changePrevImgIndex"
       @propChangeNextImgIndex="changeNextImgIndex"
     )
-      //- :calculatePrice="totalPrice"
-      //- :getSelectedDays="getSelectedDays()"
-      //- :getPeriodOfDays="getPeriodOfDays"
     BookingPopup(
       :roomAmentities="roomAmentities"
       :checkIn="range.start"
       :checkOut="range.end"
       :bookingPopup="bookingPopup"
+      :normalDayCost="roomPrice.normalDayPrice || 0"
+      :holidayCost="roomPrice.holidayPrice || 0" 
       @propBookingPopup="bookingPopup = false"
       @propBookingRoomHandler="propBookingRoomHandler"
       @propClickToCloseReservationPopup="showReservationPopup = true"
@@ -125,8 +124,6 @@ export default {
       dateItem: [],
       bookingPopup: false,
       showReservationPopup: false,
-      // checkIn: calculateDays(new Date(), 1),
-      // checkOut: calculateDays(new Date(), 2)
     }
   },
   methods: {
@@ -183,7 +180,10 @@ export default {
         this.showReservationPopup = true;
         this.bookingPopup = false;
       }
-    }
+    },
+    useCalculateDays(date) {
+      return calculateDays(date, 1);
+    },
   },
   computed: {
     ...mapGetters({
@@ -219,6 +219,11 @@ export default {
     DatePicker,
     BookingPopup,
     ReservationPopup
+  },
+  filters: {
+    currencyComma(value) {
+      return formatCurrency(value);
+    }
   },
   async mounted() {
     try {

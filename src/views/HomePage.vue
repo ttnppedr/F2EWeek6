@@ -169,8 +169,8 @@ export default {
       text-align: right;
       > p {
         display: inline-block;
-        width: 20px;
-        height: 20px;
+        width: 14px;
+        height: 14px;
         border: 1px solid #fff;
         border-radius: 50%;
         margin-right: 11px;

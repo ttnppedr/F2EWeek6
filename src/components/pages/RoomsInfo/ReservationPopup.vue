@@ -39,6 +39,7 @@ import CrossButton from '@/components/base/CrossButton.vue'
 import BookingBorder from '@/assets/img/rooms/booking-border.svg';
 
 export default {
+  name: 'ReservatonPopup',
   props: {
     bookingRoomSuccess: {
       type: Boolean,
