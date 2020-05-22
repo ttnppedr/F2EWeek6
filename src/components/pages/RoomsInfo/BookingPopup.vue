@@ -164,16 +164,16 @@ export default {
       this.$emit('propBookingPopup');
     },
     emitCheckOutHandler(date) {
-      this.$emit('updateCheckoutHandler', date);
+      this.start = date;
     },
     emitCheckInHandler(date) {
-      this.$emit('updateCheckInHandler', date);
+      this.end = date;
     },
     useCalculateDays(date) {
       return calculateDays(date, 1);
     },
     emitBookingFormHandler() {
-      const date = calculatePeriodOfDays(this.checkIn, this.checkOut);
+      const date = calculatePeriodOfDays(this.start, this.end);
       const id = this.$route.params.id;
       const postObj = {
         id,

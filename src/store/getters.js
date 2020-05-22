@@ -55,5 +55,13 @@ export default {
   roomAmentities: ({ singleRoom }) => {
     const { amenities } = singleRoom.room[0];
     return amenities;
-  }
+  },
+  bookingRoomSuccess: ({ bookingStatus }) => {
+    const { success } = bookingStatus;
+    return success;
+  },
+  bookingRoomFail: ({ bookingStatus }) => {
+    const { fail } = bookingStatus;
+    return fail;
+  },
 }

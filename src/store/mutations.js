@@ -9,7 +9,7 @@ export default {
     state.bookingStatus.success = success;
     state.bookingStatus.fail = '';
   },
-  upadteBookingRoomFail(state, { message }) {
+  updateBookingRoomFail(state, { message }) {
     state.bookingStatus.fail = message;
     state.bookingStatus.success = false;
   },

@@ -22,9 +22,11 @@ export default {
       });
       const { data } = res;
       commit('updateBookingRoomSucces', data);
+      return res;
     } catch (error) {
       const { data } = error.response;
       commit('updateBookingRoomFail', data);
+      return error.response;
     }
   }
 }

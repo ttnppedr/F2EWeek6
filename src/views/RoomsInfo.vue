@@ -206,7 +206,12 @@ export default {
       this.range.end = date;
     },
     async propBookingRoomHandler(postObj) {
-      await this.bookingRoom(postObj);
+      const res = await this.bookingRoom(postObj);
+      const { status } = res;
+      if (status == 200 || status == 400) {
+        this.showReservationPopup = true;
+        this.bookingPopup = false;
+      }
     }
   },
   computed: {
@@ -217,7 +222,9 @@ export default {
       roomPrice: "roomPrice",
       roomCheckInandOut: "roomCheckInandOut",
       roomUseGuide: "roomUseGuide",
-      roomAmentities: "roomAmentities"
+      roomAmentities: "roomAmentities",
+      bookingRoomSuccess: "bookingRoomSuccess",
+      bookingRoomFail: "bookingRoomFail"
     }),
     getPeriodOfDays() {
       return periodOfDays(this.range.start, this.range.end);
@@ -233,7 +240,8 @@ export default {
     Popup,
     RoomAmenities,
     DatePicker,
-    BookingPopup
+    BookingPopup,
+    ReservationPopup
   },
   async mounted() {
     try {
