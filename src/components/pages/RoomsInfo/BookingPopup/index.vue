@@ -64,28 +64,7 @@
               li 平日定義週一至週四；假日定義週五至週日及國定假日。
               li 好室旅店全面禁止吸菸。
               li 若您有任何問題，歡迎撥打 03-8321155 ( 服務時間 週一至週六 10:00 - 18:00 )。
-          div.booking-process
-            h3 
-              span 預約流程
-              hr
-            div
-              BookingProcess
-                template(v-slot:processImg)
-                  BookingForm
-                template(v-slot:prcessDescription)
-                  | 送出線上預約單
-              Arrow(class="arrow-icon")
-              BookingProcess
-                template(v-slot:processImg)
-                  BookingSearch 
-                template(v-slot:prcessDescription)
-                  | 系統立即回覆是否預訂成功 並以簡訊發送訂房通知 (若未收到簡訊請來電確認)
-              Arrow(class="arrow-icon")
-              BookingProcess
-                template(v-slot:processImg)
-                  BookingCredit
-                template(v-slot:prcessDescription)
-                  | 入住當日憑訂房通知 以現金或刷卡付款即可 (僅接受VISA.JCB.銀聯卡)
+          BookingProcess 
         CrossButton(
           :crossSize="'sm'"
           :crossColor="'dark-green'"
@@ -114,15 +93,11 @@ import CrossButton from '@/components/base/CrossButton.vue'
 import ArrowButton from '@/components/base/ArrowButton.vue'
 import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 import BookingAmenities from '@/components/pages/RoomsInfo/BookingAmenities.vue';
-import BookingProcess from '@/components/pages/RoomsInfo/BookingProcess.vue';
+import BookingProcess from '@/components/pages/RoomsInfo/BookingPopup/BookingProcess.vue'
 // views
 
 
-// assets
-import Arrow from '@/assets/img/rooms/surface1.svg';
-import BookingForm from '@/assets/img/bookingprocess/form.svg';
-import BookingCredit from '@/assets/img/bookingprocess/credit.svg';
-import BookingSearch from '@/assets/img/bookingprocess/search.svg';
+
 
 export default {
   props: {
@@ -245,11 +220,7 @@ export default {
     DatePicker,
     BookingAmenities,
     BookingProcess,
-    BookingForm,
-    BookingCredit,
-    BookingSearch,
     ArrowButton,
-    Arrow
   },
   watch: {
     checkIn(value) {
@@ -447,39 +418,6 @@ export default {
         li {
           margin-bottom: 12px;
           font-size: 12px;
-        }
-      }
-    }
-    .booking-process {
-      h3 {
-        font-size: 16px;
-        position: relative;
-        height: 33px;
-        span {
-          position: absolute;
-          top: 0;
-          left: 0;
-          z-index: 2;
-          padding-right: 10px;
-          background: #ffffff;
-        }
-        hr {
-          position: absolute;
-          top: 35%;
-          right: 0;
-          width: 100%;
-          height: 2px;
-          border: 1px solid #949C7C;
-          opacity: 0.2;
-        }
-      }
-      > div {
-        display: flex;
-        .arrow-icon {
-          transform: rotate(180deg);
-          width: 14px;
-          height: 21px;
-          margin: 10px;
         }
       }
     }
