@@ -70,7 +70,7 @@
       :class="{ 'no-provide': !roomAmentities['Television'] }"
     )
       CancelButton(
-        v-if="roomAmentities['Television']"
+        v-if="!roomAmentities['Television']"
       )
       OKButton(
         v-if="roomAmentities['Television']"
