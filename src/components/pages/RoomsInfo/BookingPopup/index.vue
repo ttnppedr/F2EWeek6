@@ -22,7 +22,7 @@
             )
             P.checkIn 入住日期
             DatePicker(
-              :value="checkInDate()"
+              :value="checkIn"
               @input="checkInHandler($event)"
               locale="en-US"
               :masks="{ weekdays: 'WW', L: 'YYYY - MM - DD' }"
@@ -30,11 +30,11 @@
             )
             p.checkOut 退房日期
             DatePicker(
-              :value="checkOutDate()"
+              :value="checkOut"
               @input="checkOutHandler($event)"
               locale="en-US"
               :masks="{ weekdays: 'WW', L: 'YYYY - MM - DD' }"
-              :available-dates='{ start: useCalculateDays(checkInDate()), end: null }'
+              :available-dates='{ start: useCalculateDays(checkIn), end: null }'
             )
             p.days {{ selectedPeriodOfDays }}天，{{ normalDays }}晚平日
             div.price
@@ -138,8 +138,6 @@ export default {
     return {
       name: 'aa',
       telephone: '0952555421',
-      start: this.checkIn,
-      end: this.checkOut,
     }
   },
   methods: {
@@ -147,15 +145,15 @@ export default {
 
     }),
     closePupop() {
-      this.start = this.checkIn;
-      this.end= this.checkOut;
+      this.$emit('propBookingPopupDateHandler', 'checkOut', calculateDays(new Date(), 1)); 
+      this.$emit('propBookingPopupDateHandler', 'checkIn',  calculateDays(new Date(), 2));
       this.$emit('propBookingPopup');
     },
     checkOutHandler(date) {
-      this.end = date;
+      this.$emit('propBookingPopupDateHandler', 'checkOut', date);
     },
     checkInHandler(date) {
-      this.start = date;
+      this.$emit('propBookingPopupDateHandler', 'checkIn', date);
     },
     useCalculateDays(date) {
       return calculateDays(date, 1);
@@ -172,19 +170,6 @@ export default {
         }
       };
       this.$emit('propBookingRoomHandler', postObj);
-    },
-    checkOutDate() {
-      return this.end;
-    },
-    checkInDate() {
-      if(
-        new Date(this.start).getDate() >= 
-        new Date(this.end).getDate()
-      ) {
-        const period = new Date(this.start).getDay() - new Date(this.end).getDay();
-        this.end = calculateDays(this.end, Math.abs(period) + 1);
-      }
-      return this.start;
     },
   },
   computed: {

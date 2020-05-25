@@ -13,7 +13,7 @@
           | / {{ getPeriodOfDays }}晚
         button(
           type="button"
-          @click="bookingPopup = true"
+          @click="showPopupAndAsyncDate"
         ) Booking now
       Carousel(
         @click.native="showPopup = true"
@@ -62,11 +62,12 @@
       :singleRoomName="singleRoomName"
       :roomSpecification="roomSpecification(singleRoomName)"
       :roomAmentities="roomAmentities"
-      :checkIn="range.start"
-      :checkOut="range.end"
+      :checkIn="bookingPopupDate.checkIn"
+      :checkOut="bookingPopupDate.checkOut"
       :bookingPopup="bookingPopup"
       :normalDayCost="roomPrice.normalDayPrice || 0"
       :holidayCost="roomPrice.holidayPrice || 0" 
+      @propBookingPopupDateHandler="propBookingPopupDateHandler"
       @propBookingPopup="bookingPopup = false"
       @propBookingRoomHandler="propBookingRoomHandler"
       @propClickToCloseReservationPopup="showReservationPopup = true"
@@ -122,6 +123,10 @@ export default {
       range: {
         start: calculateDays(new Date(), 1),
         end: calculateDays(new Date(), 2)
+      },
+      bookingPopupDate: {
+        checkIn: calculateDays(new Date(), 1),
+        checkOut: calculateDays(new Date(), 2) 
       },
       dateItem: [],
       bookingPopup: false,
@@ -186,6 +191,32 @@ export default {
     useCalculateDays(date) {
       return calculateDays(date, 1);
     },
+    propBookingPopupDateHandler(type, date) {
+      if (type == 'checkIn') {
+        if (
+          new Date(date).getMonth() >= 
+          new Date(this.bookingPopupDate.checkOut).getMonth() ||
+          new Date(date).getDate() >= 
+          new Date(this.bookingPopupDate.checkOut).getDate() 
+        ) {
+          this.bookingPopupDate.checkOut = calculateDays(date, 1);
+        }
+        this.bookingPopupDate.checkIn = date;
+      } 
+      if (type == 'checkOut') {
+        this.bookingPopupDate.checkOut = date;
+      }
+    },
+    showPopupAndAsyncDate() {
+      if (
+        new Date(this.range.start).getDate() != 
+        new Date(this.bookingPopupDate.checkIn).getDate()
+      ) {
+        this.bookingPopupDate.checkIn = this.range.start;
+        this.bookingPopupDate.checkOut = this.range.end;
+      }
+      this.bookingPopup = true;
+    } 
   },
   computed: {
     ...mapGetters({
