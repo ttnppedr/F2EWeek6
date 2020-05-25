@@ -16,6 +16,7 @@ export default {
   },
   roomSpecification: state => name => {
     const obj = {
+      'default': '',
       "Single Room": "1人・ 單人床・ 附早餐・衛浴1間・18平方公尺",
       "Double Room": "2~3人・ 雙人床・ 附早餐・衛浴1間・26平方公尺",
       "Twin Room": "2~4人・ 雙人床・ 附早餐・衛浴1間・36平方公尺",
@@ -23,6 +24,7 @@ export default {
       "Deluxe Single Room": "1人・ 小型雙人床・ 附早餐・衛浴1間・22平方公尺",
       "Deluxe Double Room": "2~3人・ 雙人床・ 附早餐・衛浴1間・26平方公尺",
     };
+    if(!name) return obj['default'];
     return obj[name];
   },
   roomPrice: ({ singleRoom }) => {

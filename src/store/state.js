@@ -20,6 +20,7 @@ export default {
         imageUrl: [],
         checkInAndOut: {},
         description: "",
+        name: '',
       }
     ]
   },
