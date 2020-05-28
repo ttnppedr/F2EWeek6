@@ -8,15 +8,15 @@
           form
             label(for="name") 姓名
             input(
-              type="text" 
-              id="name" 
+              type="text"
+              id="name"
               placeholder="請輸入姓名"
               v-model="name"
             )
             label(for="telephone") 手機號碼
             input(
-              type="text" 
-              id="telephone" 
+              type="text"
+              id="telephone"
               placeholder="請輸入手機號碼"
               v-model="telephone"
             )
@@ -46,7 +46,7 @@
             p.note 此預約系統僅預約功能，並不會對您進行收費
         div.booking-room-info
           div.room-description
-            h2 
+            h2
               span {{ singleRoomName }}
               hr
             p.room-specification {{ roomSpecification }}
@@ -56,15 +56,15 @@
                 :roomAmentities="roomAmentities"
               )
           div.use-guide
-            h3 
+            h3
               span 訂房資訊
-              hr 
+              hr
             ul
               li 入住時間：最早15：00，最晚21：00；退房時間：10：00，請自行確認行程安排。
               li 平日定義週一至週四；假日定義週五至週日及國定假日。
               li 好室旅店全面禁止吸菸。
               li 若您有任何問題，歡迎撥打 03-8321155 ( 服務時間 週一至週六 10:00 - 18:00 )。
-          BookingProcess 
+          BookingProcess
         CrossButton(
           :crossSize="'sm'"
           :crossColor="'dark-green'"
@@ -76,7 +76,7 @@
 <script>
 // plugin
 import { mapActions, mapGetters } from "vuex";
-import { 
+import {
   calculateDays,
   calculatePeriodOfDays
 } from '@/assets/utils/dateConvertor.js';
@@ -145,7 +145,7 @@ export default {
 
     }),
     closePupop() {
-      this.$emit('propBookingPopupDateHandler', 'checkOut', calculateDays(new Date(), 1)); 
+      this.$emit('propBookingPopupDateHandler', 'checkOut', calculateDays(new Date(), 1));
       this.$emit('propBookingPopupDateHandler', 'checkIn',  calculateDays(new Date(), 2));
       this.$emit('propBookingPopup');
     },
@@ -190,10 +190,10 @@ export default {
       return getSelectedDays(this.start, this.end).reduce((total, day) => {
         let isNormalDay = normalDay.find(normal => normal == day);
         if (!isNormalDay) return total;
-        
+
         total += 1;
         return total;
-      }, 0);  
+      }, 0);
     },
     selectedPeriodOfDays() {
       const selectedDays = getSelectedDays(this.start, this.end);
