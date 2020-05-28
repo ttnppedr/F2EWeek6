@@ -1,0 +1,20 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: circleci/node:12.16.3
+    steps:
+      - checkout
+      - node/install:
+          node-version: 12.16.3
+      - run: node --version
+      - run: npm install
+      - run: npm run build
+      - aws-cli/install
+      - aws-cli/setup
+      - run: aws s3 rm s3://${S3_BUCKET}/ --recursive
+      - run: aws s3 cp ./dist s3://${S3_BUCKET}/ --acl public-read --recursive
+
+orbs:
+  node: circleci/node@2.1.1
+  aws-cli: circleci/aws-cli@1.0.0
